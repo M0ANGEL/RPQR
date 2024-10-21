@@ -5,12 +5,20 @@
         @csrf
 
         @method('PUT')
+        <h1 style="color: rgb(255, 255, 255); text-align: center; margin-bottom: 10px; margin-top: 10px; background: blue; border-radius: 10px;"><b>DATOS DEL USUARIO</b></h1>
         <div class="mb-4">
             <x-label>
-                Nombre
+                Nombre Completo
             </x-label>
             <x-input 
              class="w-full" value="{{$huvpermiso->name}}" readonly required />
+        </div>
+        <div class="mb-4">
+            <x-label>
+                Usuario Servinte
+            </x-label>
+            <x-input 
+             class="w-full" value="{{$huvpermiso->usuario_servinte}}" readonly required />
         </div>
         <div class="mb-4">
             <x-label>
@@ -33,13 +41,22 @@
             <x-input 
              class="w-full" value="{{$huvpermiso->bodega_nueva}}" readonly required />
         </div>
+        <h2 style="color: rgb(255, 255, 255); text-align: center; margin-bottom: 10px; margin-top: 10px; background: blue; border-radius: 10px;"><b>DATOS USUARIO REFERENCIA</b></h2>
         <div class="mb-4">
             <x-label>
                 Usuario clonar
             </x-label>
             <x-input 
-             class="w-full" value="{{$huvpermiso->pb}}" readonly required />
+             class="w-full" value="{{$huvpermiso->usuario_clonar_servinte}}" readonly required />
         </div>
+        <div class="mb-4">
+            <x-label>
+                Cedula Usuario clonar
+            </x-label>
+            <x-input 
+             class="w-full" value="{{$huvpermiso->cedula_usuario_referencia}}" readonly required />
+        </div>
+        <h2 style="color: rgb(255, 255, 255); text-align: center; margin-bottom: 10px; margin-top: 10px; background: blue; border-radius: 10px;"><b>DATOS REGENTE</b></h2>
         <div class="mb-4">
             <x-label>
                 Regente que solicita
@@ -55,7 +72,7 @@
              class="w-full" value="{{$huvpermiso->reporte}}" readonly required />
         </div>
 
-        <input type="hidden" name="estado" value="1">
+        <input type="hidden" name="estado_servinte" value="1">
 
         <div class="flex justify-end" >
 

@@ -31,6 +31,16 @@
         </div>
 
         <div class="mb-4">
+            <x-label>Imbolucrado</x-label>
+            <x-input class="w-full" value="{{ $reporte->imbolucrado }}" readonly />
+        </div>
+
+        <div class="mb-4">
+            <x-label>Empresa Del Imbolucrado</x-label>
+            <x-input class="w-full" value="{{ $reporte->empresa }}" readonly />
+        </div>
+
+        <div class="mb-4">
             <x-label>Fecha del evento </x-label>
             <x-input class="w-full" value="{{ $reporte->fechareporte }}" readonly />
         </div>
@@ -40,14 +50,45 @@
             <textarea name="reporte" {{-- cols="146" --}} rows="6"
                 class="border-gray-300 w-full focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" readonly>{{ $reporte->reporte }}</textarea>
         </div>
+        
+        @if ($reporte->estado==3)
+            <h2 style="color: blue; text-align: center;"><b>DATOS DEL REGENTE ASIGNADO AL CASO</b></h2>
+            <div class="mb-4">
+                <x-label>Regente</x-label>
+                <x-input class="w-full" value="{{ $reporte->regente ? $reporte->regente->name : 'N/A' }}" readonly />
+            </div>
+            
+            <div class="mb-4">
+                <x-label>Grupo Bodega</x-label>
+                <x-input class="w-full" value="{{ $reporte->grupo_bodega }}" readonly />
+            </div>
+            
+            <h3 style="color: red; text-align: center; font-size:20px; "><b>Esperando respuestas del caso por parte del regente</b></h3>
+        @endif
+
+        @if ($reporte->estado==4)
+            <h2 style="color: blue; text-align: center;"><b>DATOS DEL REGENTE ASIGNADO AL CASO</b></h2>
+            <div class="mb-4">
+                <x-label>Regente</x-label>
+                <x-input class="w-full" value="{{ $reporte->regente ? $reporte->regente->name : 'N/A' }}" readonly />
+            </div>
+            
+            <div class="mb-4">
+                <x-label>Grupo Bodega</x-label>
+                <x-input class="w-full" value="{{ $reporte->grupo_bodega }}" readonly />
+            </div>
+            
+        @endif
+
+
         @if ($reporte->estado == 0)
             <div class="mb-4">
                 <x-label>
                     Regente encargado
                 </x-label>
-                <x-select class="w-full" name="regente">
+                <x-select class="w-full" name="regente_id">
                     @foreach ($regentes as $regene)
-                        <option value={{ $regene->bodega }}>{{ $regene->name }}</option>
+                        <option value={{ $regene->id }}>{{ $regene->name }}</option>
                     @endforeach
                 </x-select>
             </div>
@@ -85,8 +126,13 @@
             <button type="button"
                 class="ml-4 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 transition ease-in-out duration-150"
                 style="background-color: rgb(47, 206, 255)" id="btnOcultarShoForm">
-                RESPUESTAS
+                VER RESPUESTAS DEL CASO 
             </button>
+            <button type="button" style="background: red;"
+                    class=" ml-4 inline-flex items-center px-4 py-2  border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 transition ease-in-out duration-150"
+                    onclick="activar()">
+                    ACTIVAR CASO DE NUEVO
+                </button>
             <p style="color: rgb(10, 35, 143)" class="text-end"><b>El caso esta cerrado correctamente</b></p>
         @else
             <div class="flex justify-end">
@@ -108,19 +154,20 @@
                 @endif
 
                 {{-- manda el formulario pequeño del scrip --}}
-                <button type="button"
-                    class=" ml-4 inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 transition ease-in-out duration-150"
+                
+                <button type="button" style="background: blue;"
+                    class=" ml-4 inline-flex items-center px-4 py-2  border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 transition ease-in-out duration-150"
                     onclick="update()">
-                    Cerrar
+                    Cerrar Caso
                 </button>
             </div>
         @endif
 
     </form>
 
-    {{-- --------------------------------------------------------------------- --}}
+    {{-- ------------------------CASOS CERRADOS--------------------------------------------- --}}
 
-    <form style="display: none" id="respuestasForm" method="POST" action="{{ route('reporte.update', $reporte) }}"
+    <form style="display: none" id="respuestasForm" method="POST" action="{{ route('estado', $reporte) }}"
         class="bg-white rounded-lg p-6 shadow-lg">
         @csrf
         @method('PUT')
@@ -223,10 +270,16 @@
         </div>
     </form>
     {{-- update --}}
-    <form action="{{ route('reporte.update', $reporte) }}" method="POST" id="formDelete">
+    <form action="{{ route('estado', $reporte) }}" method="POST" id="formDelete">
         @csrf
         @method('PUT')
         <input type="hidden" name="estado" value="1">
+    </form>
+    {{-- activar caso --}}
+    <form action="{{ route('estado', $reporte) }}" method="POST" id="activar">
+        @csrf
+        @method('PUT')
+        <input type="hidden" name="estado" value="0">
     </form>
 
     @push('js')
@@ -234,6 +287,11 @@
             /* envio de formilarios extras */
             function update() {
                 form = document.getElementById('formDelete');
+                form.submit();
+            }
+
+            function activar() {
+                form = document.getElementById('activar');
                 form.submit();
             }
 

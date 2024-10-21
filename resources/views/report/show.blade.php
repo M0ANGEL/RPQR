@@ -1,4 +1,13 @@
-<x-app-layout>    
+<x-app-layout>  
+    <style>
+        #marco{
+               border: 2px solid #BDC3C7 
+           }
+
+           #filas:hover{
+           background: rgb(234, 242, 248)
+           }
+   </style>  
     <div class="flex justify-end mb-4">
         <x-button type="button">
             <a href="{{route('reporte.index',$reports)}}">CASOS PENDIENTES</a>
@@ -7,9 +16,9 @@
     @if ($reports->count())
     <h1 class="text-center mb-4 " style="color: blue"><b>REPORTES DE FARMACIA A SERVICIOS CERRADOS</b></h1>
     
-    <div class="relative overflow-x-auto" style="border-radius: 6px">
-        <table  class="w-full text-sm text-center rtl:text-right text-gray-800 dark:text-gray-800">
-            <thead class="text-xs text-gray-50 uppercase bg-gray-800 dark:bg-gray-700 dark:text-gray-400">
+    <div id="marco" class="relative overflow-x-auto" style="border-radius: 6px">
+        <table class="w-full text-sm text-center rtl:text-right text-gray-800 dark:text-gray-800" style="border: rgb(172, 174, 175)">
+            <thead class="text-xs text-gray-50 uppercase  dark:bg-gray-700 dark:text-white-400" style="background: rgb(52, 73, 94);">
                 <tr>
                     <th scope="col" class="px-6 py-3">
                         ID
@@ -27,47 +36,37 @@
                         Estado
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Ver mas
+                        Informacion del caso
                     </th>
                 </tr>
             </thead>
             <tbody>
 
                 @foreach ($reports as $reporte) 
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                <tr id="filas" class=" border-b  dark:border-gray-700" style="color: rgb(44, 62, 80)">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                             {{$reporte->id}}
                         </th>
     
-                        <td class="px-6 py-4">
+                        <td style="color: rgb(44, 62, 80)" class="px-6 py-4">
                             {{$reporte->created_at}}
                         </td>
                     
-                        <td class="px-6 py-4">
+                        <td style="color: rgb(44, 62, 80)" class="px-6 py-4">
                             {{$reporte->redservicio}}
                         </td>
 
-                        <td class="px-6 py-4">
+                        <td style="color: rgb(44, 62, 80)" class="px-6 py-4">
                             {{$reporte->huvservicio}}
                         </td>
-                        @switch($reporte->estado)
-                            @case(0)
-                            <td><p style="color:rgb(247, 244, 95)">PENDIENTE</p></td>>    
-                                @break
-                            @case(1)
-                                    <td><p style="color:aliceblue">CERRADO</p></td>    
-                                @break
-                            
-                            @default
-                            
-                        @endswitch
-
-                        <td class="px-6 py-4">
+                        <td style="color: rgb(44, 62, 80)" class="px-6 py-4">
+                            <p style="color: blueviolet;"><b>CERRADO</b></p>
+                        </td>
+                        <td style="color: rgb(44, 62, 80)" class="px-6 py-4">
                             <a href="{{route('reporte.edit',$reporte)}}">
                                 <i class="fa-regular fa-eye"></i>
                             </a>
-                        </td>
-                    
+                        </td>    
                     </tr>
                 @endforeach 
             </tbody>

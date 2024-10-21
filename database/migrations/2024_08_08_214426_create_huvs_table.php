@@ -19,8 +19,9 @@ return new class extends Migration
             $table->string('telefono')->nullable();
             $table->string('correo_redv')->default('soporte@utredvital.com');
             $table->string('cargo');
+            $table->string('servinte_no')->default(0);
             $table->string('bodega');
-            /* $table->string('realizado')->default(false); */
+            $table->string('name_referencia');
             $table->string('usuario_clonar_huv');
             $table->string('usuario_clonar_sebthi');
             $table->string('cedula_clonar');

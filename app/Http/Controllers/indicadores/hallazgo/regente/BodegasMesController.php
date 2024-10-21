@@ -18,7 +18,7 @@ class BodegasMesController extends Controller
     
         // Consultar los registros filtrados por fechas
         $data = DB::table('hallazgos')
-            ->select('bodega', DB::raw('SUM(hallazgo) as total'))
+            ->select('bodega', DB::raw('SUM(porcentaje) as total'))
             ->when($startDate, function ($query) use ($startDate) {
                 return $query->whereDate('created_at', '>=', $startDate);
             })

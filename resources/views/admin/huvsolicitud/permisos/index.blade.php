@@ -1,7 +1,7 @@
 <x-app-layout>    
     <div class="flex justify-end mb-4">
         <a  style="background-color: rgb(60, 94, 10)" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 transition ease-in-out duration-150"
-        href="{{-- {{route('huv.create')}} --}}">REPORTE/DATOS</a>
+        href="{{route('permisos_historial')}}">REPORTE/DATOS</a>
     </div>
 
     <style>
@@ -29,7 +29,7 @@
                         Requerimiento
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Bodega nueva
+                        Usuario CLonar
                     </th>
                 
                     <th scope="col" class="px-6 py-3">
@@ -40,7 +40,7 @@
             <tbody>
                 @foreach ($reports as $huvpermiso) 
                 <tr id="filas" class=" border-b  dark:border-gray-700" style="color: rgb(44, 62, 80)">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                             {{$huvpermiso->id}}
                         </th>
                         <td style="color: rgb(44, 62, 80)" class="px-6 py-4">
@@ -50,7 +50,7 @@
                             {{$huvpermiso->pb}}
                         </td>
                         <td style="color: rgb(44, 62, 80)" class="px-6 py-4">
-                            {{$huvpermiso->usuario_clonar}}
+                            {{$huvpermiso->usuario_clonar_servinte}}
                         </td>
                         <td style="color: rgb(44, 62, 80)" class="px-6 py-4">
                             <a href="{{route('huvpermisos.edit',$huvpermiso)}}">

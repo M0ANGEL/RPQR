@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('dispensados', function (Blueprint $table) {
             $table->id();
-            $table->integer('digitado');
-            $table->integer('hallazgo');
+            $table->integer('numerador');
+            $table->integer('denominador');
             $table->float('porcentaje');
             $table->string('bodega');
             $table->float('porcentaje_mesual')->nullable();

@@ -5,13 +5,23 @@ namespace App\Http\Controllers\VistaMedica;
 use App\Http\Controllers\Controller;
 use App\Models\vistaMedica\vista;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class IngresosVistaMedicaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $datos = vista::orderBy('id','desc')->paginate(8);
-        return view('admin.vistamedica.registro.index',compact('datos'));
+        $busqueda = $request->get('text','');
+        
+        /* busqueda de registros filtrada */
+
+        $datos = DB::table('vista')
+        ->select('id','acttor','vistamedica','nombrevistamedica','unidadmedica','codigosebthi','medicamento')
+        ->where('medicamento','like','%'.$busqueda.'%')
+        ->orwhere('codigosebthi','like','%'.$busqueda.'%')
+        ->paginate(15);
+
+        return view('admin.vistamedica.registro.index',compact('datos','busqueda'));
     }
 
     /**

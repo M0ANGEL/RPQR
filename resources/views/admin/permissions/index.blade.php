@@ -24,7 +24,7 @@
                 <tbody>
                     @foreach ($permissions as $permission) 
                     <tr id="filas" class=" border-b  dark:border-gray-700" style="color: rgb(44, 62, 80)">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                                 {{$permission->id}}
                             </th>
                             <td class="px-6 py-4">
@@ -42,6 +42,10 @@
             </table>
         
         </div>
+         <div class="mt-8">
+            {{$permissions->links()}}
+        </div> 
+       
     @else
     {{-- alert --}}
         <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">

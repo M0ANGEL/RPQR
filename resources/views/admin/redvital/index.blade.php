@@ -37,7 +37,7 @@
                 <tbody>
                     @foreach ($redvitals as $redvital) 
                     <tr id="filas" class=" border-b  dark:border-gray-700" style="color: rgb(44, 62, 80)">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                                 {{$redvital->id}}
                             </th>
                             <td style="color: rgb(44, 62, 80)" class="px-6 py-4">

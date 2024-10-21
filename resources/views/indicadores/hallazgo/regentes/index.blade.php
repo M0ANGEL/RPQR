@@ -46,7 +46,7 @@ Carbon::setLocale('es');
         </thead>
         <tbody>
              @foreach ($datos as $dato) 
-                <tr id="filas" class=" border-b dark:bg-gray-800 dark:border-gray-700" style="color: rgb(44, 62, 80)">
+                <tr id="filas" class=" border-b  dark:border-gray-700" style="color: rgb(44, 62, 80)">
                     <td style="color: rgb(5, 35, 59)" class="px-6 py-4">
                         {{ $dato->created_at->locale('es')->translatedFormat('F') }} {{-- F mes --}}
                     </td>
@@ -55,10 +55,10 @@ Carbon::setLocale('es');
                         {{ $dato->created_at->locale('es')->translatedFormat('d') }} {{-- D dia --}}
                     </td>
                     <td style="color: rgb(5, 35, 59)" class="px-6 py-4">
-                        {{ $dato->digitado }}
+                        {{ $dato->denominador }}
                     </td>
                     <td style="color: rgb(5, 35, 59)" class="px-6 py-4">
-                        {{ $dato->hallazgo}}
+                        {{ $dato->numerador}}
                     </td>
                     
                     @if ($dato->porcentaje >5)

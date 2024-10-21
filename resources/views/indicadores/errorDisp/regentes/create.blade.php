@@ -14,16 +14,16 @@
         </div>
         <div class="mb-4">
             <x-label>
-                Total de insumos solicitados dia
+                Total errores dispensados dia
             </x-label>
-            <x-input name="digitado" class="w-full" required />
-            <input type="hidden" name="bodega" class="w-full" required value="{{$usuario->bodega}}"> 
+            <x-input name="numerador" class="w-full" required /> {{-- numerador --}}
         </div>
         <div class="mb-4">
             <x-label>
-                Total errores dispensados dia
+                Total de insumos solicitados dia
             </x-label>
-            <x-input name="hallazgo" class="w-full" required />
+            <x-input name="denominador" class="w-full" required /> {{-- denominador --}}
+            <input type="hidden" name="bodega" class="w-full" required value="{{$usuario->bodega}}"> 
         </div>
         @if ($currentTime->between($startTime, $endTime))
             <div class="flex justify-end">
@@ -42,6 +42,10 @@
        
     </form>
     <div class="mt-4" style="float: right">
+        <x-button class="mt-4 ml-4" style="background-color: rgb(0, 124, 182)">
+            <a href="{{route('indicadoresDiario.index')}}">Ficha Tecnica</a>
+        </x-button>
+        
         <x-button class="mt-4 ml-4" style="background-color: rgb(115, 2, 8)">
             <a href="{{route('DispensadoDiario.index')}}">Vista datos diarios</a>
         </x-button>

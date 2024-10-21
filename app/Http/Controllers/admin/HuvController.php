@@ -13,7 +13,7 @@ class HuvController extends Controller
     public function index( Request $request)
     {
         $usuarios = huv::where('user_id','=',Auth::user()->id)
-        ->orderBy('id','desc')->paginate(8);
+        ->orderBy('id','desc')->paginate(15);
         return view('admin.usuarioshuv.index',compact('usuarios'));
     }
 
@@ -31,15 +31,19 @@ class HuvController extends Controller
         $request->validate([
             'name'=>'required',
             'cedula'=>'required',
-            'telefono'=>'nullable',
+            'telefono',
             'cargo',
             'bodega'=>'required',
             'usuario_clonar_huv'=>'required',
             'usuario_clonar_sebthi'=>'required',
-            'cedula_clonar'=>'required'
+            'cedula_clonar'=>'required',
+            'name_referencia'=>'required'
             
             
         ]);
+
+        
+        $servinte_no = ($request->cargo === 'Patinador') ? 1 : 0;
 
         $huv = huv::create([
             'name'=>$request->name,
@@ -47,10 +51,12 @@ class HuvController extends Controller
             'telefono'=>$request->telefono,
             'cargo'=>$request->cargo,
             'bodega'=>$request->bodega,
+            'name_referencia'=>$request->name_referencia,
             'usuario_clonar_huv'=>$request->usuario_clonar_huv,
             'cedula_clonar'=>$request->cedula_clonar,
             'usuario_clonar_sebthi'=>$request->usuario_clonar_sebthi,
-            'user_id'=> Auth()->id(),
+            'servinte_no' => $servinte_no,
+            'user_id'=> Auth::id(),
         ]);
 
         session()->flash('swal',[

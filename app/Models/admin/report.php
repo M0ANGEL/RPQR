@@ -33,10 +33,20 @@ class report extends Model
         'respuesta_porque5',
         'causa_raiz',
         'rechazado',
+        'empresa',
+        'imbolucrado',
+        'regente_id'
     ];
 
 
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+    public function regente()
+    {
+        return $this->belongsTo(User::class, 'regente_id'); // Relación con el campo regente_id
+    }
+    
+
 }

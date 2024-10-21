@@ -19,7 +19,7 @@ class UserController extends Controller
         ->orwhere('email','like','%'.$busqueda.'%')
         ->orwhere('bodega','like','%'.$busqueda.'%')
         ->orwhere('perfil','like','%'.$busqueda.'%')
-        ->paginate(8);
+        ->paginate(15);
 
         return view('admin.users.index', compact('users','busqueda'));
     }
@@ -57,8 +57,9 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $roles = Role::all();
+        $bodegas = bodega::all();
         
-        return view('admin.users.edit',compact('user','roles'));
+        return view('admin.users.edit',compact('user','roles','bodegas'));
     }
 
     /**
@@ -67,33 +68,37 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $request->validate([
-            'name'=>'required',
-            'email'=>"required|string|email|unique:users,email,{$user->id}",
-            'password'=>'nullable',
+            'name' => 'required',
+            'bodega',
+            'perfil',
+            'email' => "required|string|email|unique:users,email,{$user->id}",
+            'password' => 'nullable',  // Permitir que la contraseña sea opcional
         ]);
-        /* crear dato */ 
 
-        $user->update($request->all());
-
-       /*
+        // Actualizar solo los campos que se permiten actualizar directamente
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->password = bcrypt($request->password);*/
+        $user->bodega = $request->bodega;
+        $user->perfil = $request->perfil;
 
-        /* actualizar contra ya que no se puede enviar nulla 
-        if($user->password){
+        // Si la contraseña fue proporcionada, encriptarla y actualizarla
+        if ($request->filled('password')) {
             $user->password = bcrypt($request->password);
-        }*/
+        }
 
+        $user->save();  // Guardar los cambios en el usuario
+
+        // Sincronizar roles
         $user->roles()->sync($request->roles);
-        /* mensaje flash */
-        session()->flash('swal',[
-            'icon'=>'success',
-            'title'=>'¡Bien hecho!',
-            'text'=>'se actualizo correctamente'
+
+        // Mensaje flash de éxito
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => '¡Bien hecho!',
+            'text' => 'Se actualizó correctamente',
         ]);
-        
-        return redirect()->route('users.edit', $user);
+
+    return redirect()->route('users.edit', $user);
     }
 
     /**
@@ -101,30 +106,14 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        /* validacion si existe
-        $posts = huv::where('user_id', $user->id)->exists();
-
-        if($posts){ 
-            session()->flash('swal',[
-                'icon'=>'error',
-                'title'=>'¡Error!',
-                'text'=>'El usuario no se puede eliminar, esta en uso'
-            ]);
-            return redirect()->route('users.edit',$user);
         
-        }else{
-         */
-
-            $user->delete();
-         
-            session()->flash('swal',[
-            'icon'=>'success',
-            'title'=>'¡Bien hecho!',
-            'text'=>'El usuario se elimino correctamente'
+        $user->delete();
+        session()->flash('swal',[
+        'icon'=>'success',
+        'title'=>'¡Bien hecho!',
+        'text'=>'El usuario se elimino correctamente'
         ]);
 
-        return redirect()->route('users.index');
-
-        
+        return redirect()->route('users.index');  
     }
 }

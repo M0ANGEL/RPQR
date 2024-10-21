@@ -34,20 +34,22 @@ class ReportController extends Controller
             'redservicio' => 'required',
             'huvservicio' => 'required',
             'reporte' => 'required',
+            'imbolucrado',
+            'empresa'
         ]);
     
         $report = new Report();
-        $report->fill($request->only(['fechareporte', 'redservicio', 'huvservicio', 'reporte']));
-        $report->user_id = auth()->id(); 
+        $report->fill($request->only(['fechareporte', 'redservicio', 'huvservicio', 'reporte','imbolucrado','empresa']));
+        $report->user_id = Auth::id(); 
         $report->save();
     
         session()->flash('swal', [
             'icon' => 'success',
             'title' => 'Bien hecho',
-            'text' => 'El caso se envió correctamente',
+            'text' => 'El caso se creo correctamente',
         ]);
     
-        return redirect()->route('reporte.create');
+        return redirect()->route('reportar');
     }
     
 
@@ -67,15 +69,49 @@ class ReportController extends Controller
     }
 
     public function update(Request $request, report $reporte)
-    {
+{
+    // Buscar el usuario que corresponde a regente_id
+    $regente = User::find($request->regente_id);
+
+    // Verificar si se encontró el regente
+    if ($regente) {
+        // Actualizar los campos del reporte
+        $reporte->regente_id = $request->regente_id;
+        $reporte->tipo_accion = $request->tipo_accion;
+        $reporte->grupo_bodega = $regente->bodega; // Asignar la bodega del regente
+        $reporte->estado = $request->estado;
+        $reporte->save();
+
+        // Mensaje de éxito
+        session()->flash('swal',[
+            'icon' => 'success',
+            'title' => 'Bien hecho',
+            'text' => 'El reporte fue actualizado',
+        ]);
+
+        return redirect()->route('reporte.index');
+    } else {
+        // Mensaje de error si no se encuentra el regente
+        session()->flash('swal',[
+            'icon' => 'error',
+            'title' => 'Error',
+            'text' => 'El regente no fue encontrado',
+        ]);
+
+        return redirect()->back();
+    }
+}
+
+    public function estado(Request $request, report $reporte){
+
         $reporte->update($request->all());
 
         session()->flash('swal',[
-            'icon'=>'success',
-            'title'=>'Bien hecho',
-            'text'=>'El reporte fue actualizado',
-        ]); 
+            'icon' => 'success',
+            'title' => 'Bien hecho',
+            'text' => 'El reporte fue actualizado',
+        ]);
         return redirect()->route('reporte.index');
-
     }
+
 }

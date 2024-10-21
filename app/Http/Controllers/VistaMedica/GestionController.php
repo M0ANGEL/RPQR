@@ -12,7 +12,7 @@ class GestionController extends Controller
     public function index()
     {
         $reports = gestion::orderBy('id','desc')->select('*')
-        ->where('user_id','=',Auth::user()->id)->paginate(10);
+        ->where('grupo','=',Auth::user()->bodega)->paginate(10);
         return view('admin.pb.index',compact('reports'));
     }
 
@@ -34,8 +34,13 @@ class GestionController extends Controller
             'cedula'=>'required',
             'pb'=>'nullable',
             'bodega_nueva',
-            'usuario_clonar',            
-            'reporte',            
+            'usuario_clonar_sebthi',
+            'usuario_clonar_servinte',            
+            'reporte', 
+            'cedula_usuario_referencia',
+            'usuario_sebthi',
+            'usuario_servinte',
+            'grupo',           
         ]);
 
         gestion::create([
@@ -44,8 +49,14 @@ class GestionController extends Controller
             'pb'=>$request->pb,
             'reporte'=>$request->reporte,
             'bodega_nueva'=>$request->bodega_nueva,
-            'usuario_clonar'=>$request->usuario_clonar,
-            'user_id'=> auth()->id(),
+            'grupo'=>Auth::user()->bodega,
+            'usuario_clonar_sebthi'=>$request->usuario_clonar_sebthi,
+            'usuario_clonar_servinte'=>$request->usuario_clonar_servinte,
+            'cedula_usuario_referencia'=>$request->cedula_usuario_referencia,
+            'usuario_sebthi'=>$request->usuario_sebthi,
+            'usuario_servinte'=>$request->usuario_servinte,
+            'user_id'=> Auth::id(),
+            
         ]);
 
         session()->flash('swal',[

@@ -28,10 +28,7 @@
                             Bodega
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Usuario Referencia Servinte
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Usuario Referencia Sebthi
+                            Perfil
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Confirmar 
@@ -54,14 +51,12 @@
                                 <b style="color: rgb(44, 62, 80)">{{$confirmacion->bodega}}</b>
                             </td>
                             <td class="px-6 py-4">
-                                <b style="color: rgb(44, 62, 80)">{{$confirmacion->usuario_clonar_huv}}</b>
+                                <b style="color: rgb(44, 62, 80)">{{$confirmacion->cargo}}</b>
                             </td>
-                            <td class="px-6 py-4">
-                                <b style="color: rgb(44, 62, 80)">{{$confirmacion->usuario_clonar_sebthi}}</b>
                             </td>
                             <td class="px-6 py-4" style="color: rgb(5, 35, 59)">
-                                <a href="{{route('confirmacion.edit',$confirmacion)}}">
-                                    <i class="fa-solid fa-pen"></i>
+                                <a href="{{route('confirmacion.edit',$confirmacion)}}" >
+                                    <p style="background: green; padding: 5px; border-radius: 10px; color: white;"><b>CONFIRMAR</b></p>
                                 </a>
                             </td>
                             

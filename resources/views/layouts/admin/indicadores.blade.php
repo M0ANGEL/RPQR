@@ -20,9 +20,11 @@
 
 
 <div id="indica">
-    <a href="{{route('graficaBodegas.index')}}"  class="mr-4 ml-4" style="color: white">Hallazgos</a>            
-
-    <a href="{{route('DispensadoBodegas.index')}}"  class="mr-4 ml-4" style="color: white">Errores Disp</a>            
+    <a href="{{route('graficaBodegas.index')}}"  class="mr-4 ml-4" style="color: white">Hallazgos</a>
+    
+    <a href="{{route('DispensadoBodegas.index')}}"  class="mr-4 ml-4" style="color: white">Errores Disp</a>   
+    
+    <a href="{{route('PendientesBodegasM.index')}}"  class="mr-4 ml-4" style="color: white">Pendientes huv</a>
     
     <a href="{{route('graficaBodegas.index')}}"  class="mr-4 ml-4" style="color: white">Entrega Incompletas</a>            
     

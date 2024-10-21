@@ -15,11 +15,17 @@ class gestion extends Model
         'name',
         'pb',
         'bodega_nueva',
-        'usuario_clonar',
+        'usuario_servinte',
+        'usuario_sebthi',
+        'usuario_clonar_servinte',
+        'usuario_clonar_sebthi',
         'user_id',
+        'cedula_usuario_referencia',
         'cedula',
-        'estado',
+        'estado_sebthi',
+        'estado_servinte',
         'reporte',
+        'grupo'
     ];
 
     public function user(){

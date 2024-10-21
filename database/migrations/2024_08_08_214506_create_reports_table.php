@@ -19,11 +19,17 @@ return new class extends Migration
             $table->longText('reporte');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
+            $table->unsignedBigInteger('regente_id');
+            $table->foreign('regente_id')->references('id')->on('users')->onDelete('cascade');
+
             /* correctivo*/
             $table->string('rechazado')->nullable();
             $table->string('tipo_accion')->nullable();
-            $table->string('regente')->nullable();
+            $table->string('grupo_bodega')->nullable();
             $table->string('estado')->default(0);
+            $table->string('imbolucrado');
+            $table->string('empresa');
             $table->string('porque1')->nullable();
             $table->string('respuesta_porque1')->nullable();
             $table->string('porque2')->nullable();

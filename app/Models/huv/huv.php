@@ -28,7 +28,9 @@ class huv extends Model
         'login_servinte',
         'login_sebthi',
         'login',
-        'password' 
+        'password',
+        'name_referencia',
+        'servinte_no'
              
     ];
 

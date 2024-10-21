@@ -11,8 +11,8 @@ class Hallazgo extends Model
 
     protected $table = 'hallazgos';
     protected $fillable = [
-        'digitado',
-        'hallazgo',
+        'denominador',
+        'numerador',
         'porcentaje',
         'porcentaje_mesual',
         'analisis',

@@ -33,7 +33,7 @@
 
             @foreach ($reportes_regentes as $reportes_regente) 
                 <tr class="bg-white border-b dark:border-gray-700">
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                         {{$reportes_regente->id}}
                     </th>
    
@@ -57,7 +57,7 @@
                             <td><p style="color:red"><b>RECHAZADO</b><p></td>    
                             @break
                         @case(3)
-                            <td><p style="color:rgb(47, 184, 47)"><b>ABIERTO</b></p></td>    
+                            <td><p style="color:rgb(26, 92, 26)"><b>ABIERTO</b></p></td>    
                             @break
                         @case(4)
                             <td><p style="color:rgb(107, 234, 238)"><b>ENVIADO</b></p></td>    

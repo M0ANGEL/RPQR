@@ -1,6 +1,6 @@
 <x-app-layout>
-    <form action="{{route('reporte.store')}}" method="POST"
-    class="bg-white rounded-lg p-6 shadow-lg">
+    <form action="{{route('reportar.store')}}" method="POST"
+    class="bg-white rounded-lg p-6 shadow-lg" style="box-shadow: 0px 4px 4px rgba(0, 0, 0, 1); ">
         @csrf
 
         <h1 class="text-center mb-4 " style="color: blue">
@@ -8,16 +8,16 @@
         </h1>
 
         <div class="mb-4">
-            <x-label> Farmacia donde ocurre la novedad </x-label>
+            <x-label> Farmacia redvital donde ocurre la novedad </x-label>
             <x-select required class="w-full" name="redservicio">
                 <option value="Principal"></option>
                 <option value="Principal">Principal</option>
                 <option value="Urgencias">Urgencias</option>
-                <option value="Urgencias">Bodega</option>
+                <option value="bodega">Bodega</option>
                 <option value="Uci">Uci</option>
-                <option value="Uci">Alto costo</option>
+                <option value="AltoCosto">Alto costo</option>
                 <option value="Operaciones">Operaciones</option>
-                <option value="Operaciones">Partos</option>   
+                <option value="Partos">Partos</option>   
             </x-select>
         </div>
 
@@ -27,7 +27,7 @@
         </div>
 
         <div class="mb-4">
-            <x-label>Servicio donde ocurre la novedad</x-label>
+            <x-label>Servicio  donde ocurre la novedad</x-label>
             <x-input required class="w-full" name="huvservicio"/>
         </div>
 
@@ -37,8 +37,8 @@
         </div>
 
         <div class="mb-4">
-            <x-label>Servicio donde ocurre la novedad</x-label>
-            <x-input required class="w-full" name="huvservicio"/>
+            <x-label>Empresa del imbolucrado</x-label>
+            <x-input required class="w-full" name="empresa"/>
         </div>
 
 

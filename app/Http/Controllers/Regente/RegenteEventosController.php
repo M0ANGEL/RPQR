@@ -12,9 +12,11 @@ class RegenteEventosController extends Controller
     public function index()
     {
         /* datos de usuario logueado */
-        $reportes_regentes = report::select('*')->where('regente','=',Auth::user()->bodega)
-        /*->where('estado','=',3)->orwhere('estado','=',4)->orwhere('estado','=',2)*/
+        $reportes_regentes = report::select('*')
+        ->where('grupo_bodega', '=', Auth::user()->bodega)
+        ->where('estado', '!=', 1)
         ->paginate(15);
+        
 
         return view('report.regentes.index',compact('reportes_regentes'));
     }

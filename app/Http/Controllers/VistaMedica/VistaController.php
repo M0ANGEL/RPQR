@@ -9,17 +9,21 @@ use Illuminate\Support\Facades\DB;
 class VistaController extends Controller
 {
     public function index(Request $request)
-    {
-        $busqueda = $request->get('text','');
-        
-        /* busqueda de registros filtrada */
+{
+    $busqueda = $request->get('text', '');
 
-        $datos = DB::table('vistas')
-        ->select('vistamedica','nombrevistamedica','unidadmedica','codigosebthi','medicamento')
-        ->where('medicamento','like','%'.$busqueda.'%')
-        ->orwhere('codigosebthi','like','%'.$busqueda.'%')
-        ->paginate(3);
+    /* busqueda de registros filtrada */
+    $datos = DB::table('vista')
+        ->select('vistamedica', 'nombrevistamedica', 'unidadmedica', 'codigosebthi', 'medicamento')
+        ->where('medicamento', 'like', '%' . $busqueda . '%')
+        ->orWhere('codigosebthi', 'like', '%' . $busqueda . '%')
+        ->paginate(15);
 
-        return view('admin.vistamedica.index', compact('datos','busqueda'));
+    if ($request->ajax()) {
+        return view('admin.vistamedica.tabla', compact('datos'))->render();
     }
+
+    return view('admin.vistamedica.index', compact('datos', 'busqueda'));
+}
+
 }

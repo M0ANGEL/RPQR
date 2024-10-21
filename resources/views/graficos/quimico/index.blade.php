@@ -50,6 +50,10 @@
             background: #0373e3; /* Color de hover */
         }
     </style>
+    <div class="flex justify-end mb-4">
+        <a style="background: red;" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 transition ease-in-out duration-150"
+        href="{{route('HomeGrafica.index')}}"><b>VOLVER</b></a>
+    </div>
 
     <div class="filter-container">
         <form action="{{ route('graficaBodegas.index') }}" method="GET">

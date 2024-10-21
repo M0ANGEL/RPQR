@@ -1,13 +1,13 @@
 <x-app-layout>
     <style>
-        /* busqueda */
+        /* Ajustes para escritorio */
         .buscar {
-            margin: 50px 0 50px 340px;
+            margin: 1% 2% 35% 35%;
             margin-bottom: 30px;
         }
 
         .barra {
-            width: 500px;
+            width: 50%;
             border-radius: 10px;
             padding: 10px;
             border: solid 2px #111827;
@@ -22,9 +22,6 @@
         }
 
         .btn-buscar:hover {
-            padding: 10px;
-            border-radius: 10px;
-            font-size: 15px;
             background-color: aliceblue;
             border: 3px solid #111827;
             color: #111827;
@@ -37,76 +34,62 @@
         #filas:hover {
             background: rgb(234, 242, 248);
         }
+
+        /* Ajustes para móviles */
+        @media (max-width: 640px) {
+            .buscar {
+                margin: 20px auto;
+                text-align: center;
+            }
+
+            .barra {
+                width: 90%;
+            }
+
+            .btn-buscar {
+                width: 90%;
+                margin-top: 10px;
+            }
+
+            table {
+                font-size: 12px;
+            }
+
+            th, td {
+                padding: 5px;
+            }
+        }
     </style>
 
     {{-- barra buscar --}}
-    <form action="{{ route('vistamedica.index') }}" method="get">
-        <div class="buscar">
-            <input class="barra" type="text" name="text" value="{{ $busqueda }}" />
-            <input class="btn-buscar" type="submit" value="Buscar">
-        </div>
-    </form>
+    <div class="buscar">
+        <input class="barra" type="text" id="search" name="text" value="{{ $busqueda }}" placeholder="Buscar por codigo o medicamento sebthi"/>
+    </div>
 
     {{-- tabla para mostrar datos --}}
-    @if (count($datos) <= 0)
-        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-            <span class="block sm:inline">No hay registro para este codigo.</span>
-            <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
-                <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                    <title>Close</title>
-                    <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
-                </svg>
-            </span>
-        </div>
-    @else
-    <div id="marco" class="relative overflow-x-auto" style="border-radius: 6px">
-        <table class="w-full text-sm text-center rtl:text-right text-gray-800 dark:text-gray-800" style="border: rgb(172, 174, 175)">
-            <thead class="text-xs text-gray-50 uppercase  dark:bg-gray-700 dark:text-white-400" style="background: rgb(52, 73, 94);">
-                    <tr>
-                        <th scope="col" class="px-6 py-3">
-                            Codigo vista Medica
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Nombre Vitas medica
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Unidad Medica
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Codigo Sebthi
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Medicamento Sebthi
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($datos as $item)
-                        <tr id="filas" class=" border-b dark:border-gray-700" style="color: rgb(44, 62, 80)">
-                            <th class="px-6 py-4">
-                                <b>{{ $item->vistamedica }}</b>
-                            </th>
-                            <td style="color: rgb(44, 62, 80)" class="px-6 py-4">
-                                <b>{{ $item->nombrevistamedica }}</b>
-                            </td>
-                            <td style="color: rgb(44, 62, 80)" class="px-6 py-4">
-                                <b>{{ $item->unidadmedica }}</b>
-                            </td>
-                            <td style="color: rgb(44, 62, 80)" class="px-6 py-4">
-                                <b>{{ $item->codigosebthi }}</b>
-                            </td>
-                            <td style="color: rgb(44, 62, 80)" class="px-6 py-4">
-                                <b>{{ $item->medicamento }}</b>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-    @endif
+    <div id="tabla-datos">
+        @include('admin.vistamedica.tabla', ['datos' => $datos])
+    </div>
 
     <div class="mt-8">
-        {{-- parametro para que la busqueda siga  --}}
         {{ $datos->appends(['text' => $busqueda])->links() }}
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Evento de escritura en la barra de búsqueda
+            $('#search').on('keyup', function () {
+                var query = $(this).val();
+                $.ajax({
+                    url: "{{ route('vistamedica.index') }}",
+                    type: "GET",
+                    data: {'text': query},
+                    success: function (data) {
+                        $('#tabla-datos').html(data);
+                    }
+                });
+            });
+        });
+    </script>
 </x-app-layout>

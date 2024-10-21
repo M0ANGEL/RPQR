@@ -9,10 +9,10 @@ class Dispensado extends Model
 {
     use HasFactory;
 
-    protected $table = 'dispensados';
+    protected $table = 'pendientes';
     protected $fillable = [
-        'digitado',
-        'hallazgo',
+        'denominador',
+        'numerador',
         'porcentaje',
         'porcentaje_mesual',
         'analisis',

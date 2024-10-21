@@ -23,11 +23,11 @@
             </div>
             <div class="mb-4">
                 <x-label>
-                    Telefono  (Opcional)
+                    Telefono Usuario
                 </x-label>
                 <x-input 
                 name="telefono"
-                class="w-full" 
+                class="w-full" required
                 placeholder="Ejemplo 3110100011" />
             </div>
             <div class="mb-4">
@@ -50,10 +50,20 @@
                     <option value="Patinador">Patinador</option>
                     <option value="Regente">Regente</option>
                     <option value="Quimico">Quimico</option>
+                    <option value="auditoria">Auditoria</option>
                 </x-select>
             </div>
 
             <h1 class="mb-4 mt-4" style="color: blue"><b>Usuarios de referencia para crear perfil nuevo</b></h1>
+            <div class="mb-4">
+                <x-label>
+                    Nombre Completo Usuario Referencia
+                </x-label>
+                <x-input 
+                name="name_referencia"
+                class="w-full" 
+                placeholder="Nombre Completo" required/>
+            </div>
             <div class="mb-4">
                 <x-label>
                     Usuario Referencia Servinte

@@ -31,21 +31,27 @@
                     Bodega nueva
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Usuario clonar
+                    Usuario clonar servinte
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Estado
+                    Usuario clonar sebthi
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Estado Servinte
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Estado Sebthi
                 </th>
             </tr>
         </thead>
         <tbody>
              @foreach ($reports as $report) 
              <tr id="filas" class=" border-b  dark:border-gray-700" style="color: rgb(44, 62, 80)">
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                         {{$report->id}}
                     </th>
                     <td style="color: rgb(44, 62, 80)" class="px-6 py-4">
-                        {{$report->user->name}}
+                        {{$report->name}}
                     </td>
                     <td style="color: rgb(44, 62, 80)" class="px-6 py-4">
                         {{$report->pb}}
@@ -54,9 +60,21 @@
                         {{$report->bodega_nueva}}
                     </td>
                     <td style="color: rgb(44, 62, 80)" class="px-6 py-4">
-                        {{$report->usuario_clonar}}
+                        {{$report->usuario_clonar_servinte}}
                     </td>
-                    @switch($report->estado)
+                    <td style="color: rgb(44, 62, 80)" class="px-6 py-4">
+                        {{$report->usuario_clonar_sebthi}}
+                    </td>
+                    @switch($report->estado_servinte)
+                        @case(0)
+                                <td style="color: rgb(44, 62, 80)"><p style="color:rgb(0, 60, 255)"><b>En espera</b></p></td>    
+                            @break
+                        @case(1)
+                                <td style="color: rgb(44, 62, 80)"><p style="color:rgb(52, 84, 3)"><b>Realizado</b></p></td>    
+                            @break
+                        @default
+                    @endswitch
+                    @switch($report->estado_sebthi)
                         @case(0)
                                 <td style="color: rgb(44, 62, 80)"><p style="color:rgb(0, 60, 255)"><b>En espera</b></p></td>    
                             @break

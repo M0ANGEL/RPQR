@@ -14,7 +14,7 @@ class DiespeMesController extends Controller
     {
         $bodega = Auth::user()->bodega;
         $datos = Dispensado::where('bodega',$bodega)
-        ->select(DB::raw('DATE_FORMAT(created_at, "%Y-%m") as month'), DB::raw('SUM(porcentaje) as porcentaje'),DB::raw('SUM(hallazgo) as hallazgo'),DB::raw('SUM(digitado) as digitado'))
+        ->select(DB::raw('DATE_FORMAT(created_at, "%Y-%m") as month'), DB::raw('SUM(porcentaje) as porcentaje'),DB::raw('SUM(numerador) as hallazgo'),DB::raw('SUM(denominador) as digitado'))
         ->groupBy('month')
         ->orderBy('month')
         ->get();

@@ -7,12 +7,6 @@
        @method('PUT')
        <h1 style="color: blue" class="text-center" ><b>REPORTE DE EVENTOS</b></h1>
       
-
-        <div class="mb-4">
-            <x-label> Usuario que reporta </x-label>
-            <x-input class="w-full" value="{{$reportes_regente->user->name}}" readonly />
-        </div>
-
         <div class="mb-4">
             <x-label> Servicio Redvital</x-label>
             <x-input class="w-full" value="{{$reportes_regente->redservicio}}" readonly/>

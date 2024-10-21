@@ -28,33 +28,33 @@ class HallazgoController extends Controller
     {
        // Validación de los datos del formulario
     $validated = $request->validate([
-        'digitado' => 'required|numeric|min:0', // Asegura que sea un número y no negativo
-        'hallazgo' => 'required|numeric|min:0', // Asegura que sea un número y no negativo
+        'denominador' => 'required|numeric|min:0', // Asegura que sea un número y no negativo
+        'numerador' => 'required|numeric|min:0', // Asegura que sea un número y no negativo
         'bodega' => 'required|string|max:255', // Asegura que sea una cadena con longitud máxima de 255 caracteres
     ]);
 
     // Recuperar datos validados del formulario
-    $formdigitado = $validated['digitado'];
-    $formhallazgo = $validated['hallazgo'];
+    $formdenominador = $validated['denominador'];
+    $formnumerador = $validated['numerador'];
     $formbodega = $validated['bodega'];
 
     // Convertir los valores a números (float) para cálculos
-    $digitado = (float)$formdigitado;
-    $hallazgo = (float)$formhallazgo;
+    $denominador = (float)$formdenominador;
+    $numerador = (float)$formnumerador;
 
-    // Verificar que $hallazgo no sea cero para evitar división por cero
-    if ($hallazgo != 0) {
+    // Verificar que $numerador no sea cero para evitar división por cero
+    if ($numerador != 0) {
         // Calcular el porcentaje
-        $porcentaje = ($hallazgo / $digitado) * 100;
+        $porcentaje = ($numerador / $denominador) * 100;
         $porcentajeFormatted = number_format($porcentaje, 2);
     } else {
-        return redirect()->back()->withErrors(['hallazgo' => 'El valor de hallazgo no puede ser cero.']);
+        return redirect()->back()->withErrors(['numerador' => 'El valor de numerador no puede ser cero.']);
     }
 
     // Crear el nuevo registro en la base de datos
     Hallazgo::create([
-        'digitado' => $digitado,
-        'hallazgo' => $hallazgo,
+        'denominador' => $denominador,
+        'numerador' => $numerador,
         'porcentaje' => $porcentajeFormatted,
         'bodega' => $formbodega,
     ]);
@@ -77,6 +77,9 @@ class HallazgoController extends Controller
     public function show(Hallazgo $hallazgo)
     {
         //
+    }
+    public function fichaTecnica(){
+        return view('indicadores.hallazgo.ficha_tecnica.ficha');
     }
 
     /**

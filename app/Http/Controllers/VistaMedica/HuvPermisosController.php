@@ -9,8 +9,13 @@ use Illuminate\Http\Request;
 class HuvPermisosController extends Controller
 {
     public function index(){
-        $reports = gestion::orderBy('id','desc')->where('estado','=',0)->paginate(15);
+        $reports = gestion::orderBy('id','desc')->where('estado_servinte','=',0)->paginate(15);
         return view('admin.huvsolicitud.permisos.index',compact('reports'));
+    }
+
+    public function historial(){
+        $reports = gestion::orderBy('id','desc')->where('estado_servinte','=',1)->paginate(15);
+        return view('admin.huvsolicitud.permisos.historial.index',compact('reports'));
     }
 
     public function edit(gestion $huvpermiso){
