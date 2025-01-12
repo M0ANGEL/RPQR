@@ -12,7 +12,7 @@ class RoleController extends Controller
 {
     public function index()
     {
-        $roles = Role::all();
+        $roles = Role::paginate(5);
         return view('admin.roles.index', compact('roles'));
     }
 
@@ -30,18 +30,19 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'=>'required', 'unique:roles,name'
+            'name' => 'required',
+            'unique:roles,name'
         ]);
 
         $role = Role::create($request->all());
 
-        session()->flash('swal',[
-            'icon'=>'success',
-            'title'=>'Bien hecho',
-            'text'=>'El rol se creo corretamente',
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => 'Bien hecho',
+            'text' => 'El rol se creo corretamente',
         ]);
 
-        return redirect()->route('roles.index',$role);
+        return redirect()->route('roles.index', $role);
     }
 
     /**
@@ -49,7 +50,7 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
-        return view('admin.roles.show',compact('role'));
+        return view('admin.roles.show', compact('role'));
     }
 
     /**
@@ -57,9 +58,9 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        
+
         $permissions = Permission::all();
-        return view('admin.roles.edit',compact('role','permissions'));
+        return view('admin.roles.edit', compact('role', 'permissions'));
     }
 
     /**
@@ -68,21 +69,21 @@ class RoleController extends Controller
     public function update(Request $request, Role $role)
     {
         $request->validate([
-            'name'=>['required','unique:roles,name,' . $role->id],
-            'permission'=>'nullable|array',
+            'name' => ['required', 'unique:roles,name,' . $role->id],
+            'permission' => 'nullable|array',
         ]);
-      
+
         $role->update($request->all());
 
         $role->permissions()->sync($request->permissions);
 
-        session()->flash('swal',[
-            'icon'=>'success',
-            'title'=>'Bien hecho',
-            'text'=>'El rol se actualizo corretamente',
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => 'Bien hecho',
+            'text' => 'El rol se actualizo corretamente',
         ]);
 
-        return redirect()->route('roles.edit',$role);
+        return redirect()->route('roles.edit', $role);
     }
 
     /**
@@ -91,11 +92,11 @@ class RoleController extends Controller
     public function destroy(Role $role)
     {
         $role->delete();
-        session()->flash('swal',[
-            'icon'=>'success',
-            'title'=>'Bien hecho',
-            'text'=>'El rol se elimino corretamente',
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => 'Bien hecho',
+            'text' => 'El rol se elimino corretamente',
         ]);
-        return redirect()->route('roles.index',$role);
+        return redirect()->route('roles.index', $role);
     }
 }

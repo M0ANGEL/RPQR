@@ -1,0 +1,22 @@
+[yes] modulosde confirmar tickest: tikes que la subca necesite autorización.
+    de quien es el ticket por categoría y si necesita autorización.
+
+[yes] vista de admin, si el ticket necesita autorización informar que no se puede cerrar el ticket,
+
+[yes]  en las vistas de admin, poder cambiar la categoría del área: 
+		1 = des(desarrollo)    2 =sis(sistemas ti)
+
+[yes] barra de búsqueda para filtrar por ticket o categoría.
+
+[yes]  vista de desarrollo de administración de tickest.
+
+
+[yes] Todas las vitas y modulos bien
+
+
+
+
+
+idea de usuarios: consultar la api de sebthi el usuario a ver si esta creaco
+	la api que me de los datos de el usuario
+datos:  name | bodega | perfil | email | numero teléfono |

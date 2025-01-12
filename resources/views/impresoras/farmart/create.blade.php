@@ -8,90 +8,100 @@
 
         <!-- Selección de Letra de impresora -->
         <div class="mb-4">
-            <x-label>Letra de impresora</x-label>
-            <x-select required class="w-full" id="letra" name="letra">
-                <option value="">Selecciona una letra</option>
-                <option value="A">A</option> {{-- bodega --}}
-                <option value="B">B</option> {{-- principal --}}
-                <option value="C">C</option> {{-- ventana --}}
-                <option value="D">D</option>
-                <option value="E">E</option>
-                <option value="F">F</option> {{-- partos --}}
-                <option value="H">H</option> {{-- operaciones --}}
-                <option value="K">K</option> {{-- UCI --}}
-            </x-select>
+
+        </div>
+        {{-- assd --}}
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div>
+                <x-label>Letra de impresora</x-label>
+                <x-select required class="w-full" id="letra" name="letra">
+                    <option value="">Selecciona una letra</option>
+                    <option value="A">A</option> {{-- bodega --}}
+                    <option value="B">B</option> {{-- principal --}}
+                    <option value="C">C</option> {{-- ventana --}}
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                    <option value="F">F</option> {{-- partos --}}
+                    <option value="H">H</option> {{-- operaciones --}}
+                    <option value="K">K</option> {{-- UCI --}}
+                </x-select>
+            </div>
+            <div>
+                <x-label>Modelo de la impresora</x-label>
+                <x-input class="w-full" id="modelo" readonly name="modelo"
+                    placeholder="Introduce el modelo de la impresora" />
+            </div>
+            <div>
+                <x-label>Serial de la impresora</x-label>
+                <x-input class="w-full" id="serial" readonly name="serial"
+                    placeholder="Introduce el serial de la impresora" />
+            </div>
         </div>
 
-        <!-- Campos autocompletados -->
-        <div class="mb-4">
-            <x-label>Modelo de la impresora</x-label>
-            <x-input class="w-full" id="modelo" readonly name="modelo"
-                placeholder="Introduce el modelo de la impresora" />
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div>
+                <x-label>Marca de la impresora</x-label>
+                <x-input class="w-full" id="marca" readonly name="marca"
+                    placeholder="Introduce la marca de la impresora" />
+            </div>
+            <div>
+                <x-label>Piso donde se encuentra la impresora</x-label>
+                <x-select required class="w-full" id="piso" name="piso">
+                    <option value="">Selecciona el piso</option>
+                    <option value="1">1</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="6">6</option>
+                </x-select>
+            </div>
         </div>
 
-        <div class="mb-4">
-            <x-label>Serial de la impresora</x-label>
-            <x-input class="w-full" id="serial" readonly name="serial"
-                placeholder="Introduce el serial de la impresora" />
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div>
+                <x-label>Farmacia donde se encuentra la impresora</x-label>
+                <x-select required class="w-full" id="farmacia" name="area">
+                    <option value="">Selecciona la farmacia</option>
+                    <option value="BODEGA PRINCIPAL">BODEGA PRINCIPAL</option>
+                    <option value="FARMACIA PRINCIPAL HUV">FARMACIA PRINCIPAL HUV</option>
+                    <option value="URGENCIAS HUV">URGENCIAS HUV</option>
+                    <option value="ALTO COSTO HUV">ALTO COSTO HUV</option>
+                    <option value="UCI HUV">UCI HUV</option>
+                    <option value="OPERACIONES HUV">OPERACIONES HUV</option>
+                    <option value="PARTOS HUV">PARTOS HUV</option>
+                </x-select>
+            </div>
+            <div>
+                <x-label>Problema con la impresora</x-label>
+                <x-select required class="w-full" id="problema" name="problema">
+                    <option value="">Selecciona el problema</option>
+                    <option value="Ruido extraño">Ruido extraño</option>
+                    <option value="Hojas en blanco">Hojas en blanco</option>
+                    <option value="Hojas manchadas">Hojas manchadas</option>
+                    <option value="Hojas cortadas">Hojas cortadas</option>
+                    <option value="Hojas atascadas">Hojas atascadas</option>
+                    <option value="Impresora no prende">Impresora no prende</option>
+                    <option value="Codigo">Código</option>
+                </x-select>
+            </div>
+            <div class="mb-4" id="codigoDiv" style="display: none;">
+                <x-label>Código de problema</x-label>
+                <x-input class="w-full" id="codigo" name="codigo" placeholder="Introduce el código" />
+            </div>
         </div>
 
-        <div class="mb-4">
-            <x-label>Marca de la impresora</x-label>
-            <x-input class="w-full" id="marca" readonly name="marca"
-                placeholder="Introduce la marca de la impresora" />
-        </div>
-
-        <!-- Otros campos del formulario -->
-        <div class="mb-4">
-            <x-label>Piso donde se encuentra la impresora</x-label>
-            <x-select required class="w-full" id="piso" name="piso">
-                <option value="">Selecciona el piso</option>
-                <option value="1">1</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="6">6</option>
-            </x-select>
-        </div>
-
-        <div class="mb-4">
-            <x-label>Farmacia donde se encuentra la impresora</x-label>
-            <x-select required class="w-full" id="farmacia" name="area">
-                <option value="">Selecciona la farmacia</option>
-                <option value="BODEGA PRINCIPAL">BODEGA PRINCIPAL</option>
-                <option value="FARMACIA PRINCIPAL HUV">FARMACIA PRINCIPAL HUV</option>
-                <option value="URGENCIAS HUV">URGENCIAS HUV</option>
-                <option value="ALTO COSTO HUV">ALTO COSTO HUV</option>
-                <option value="UCI HUV">UCI HUV</option>
-                <option value="OPERACIONES HUV">OPERACIONES HUV</option>
-                <option value="PARTOS HUV">PARTOS HUV</option>
-            </x-select>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div>
+                <x-label for="foto">Subir Foto</x-label>
+                <x-input type="file" class="w-full" id="foto" name="foto" />
+            </div>
         </div>
 
         <input type="text" name="estado" value="1" hidden>
 
-        <!-- Problema con la impresora -->
-        <div class="mb-4">
-            <x-label>Problema con la impresora</x-label>
-            <x-select required class="w-full" id="problema" name="problema">
-                <option value="">Selecciona el problema</option>
-                <option value="Ruido extraño">Ruido extraño</option>
-                <option value="Hojas en blanco">Hojas en blanco</option>
-                <option value="Hojas manchadas">Hojas manchadas</option>
-                <option value="Hojas cortadas">Hojas cortadas</option>
-                <option value="Codigo">Código</option>
-            </x-select>
-        </div>
-
-        <!-- Campo adicional que aparece si se selecciona "Código" -->
-        <div class="mb-4" id="codigoDiv" style="display: none;">
-            <x-label>Código de problema</x-label>
-            <x-input class="w-full" id="codigo" name="codigo" placeholder="Introduce el código" />
-        </div>
-
         <div class="mb-4">
             <x-label>Descripción detallada del problema</x-label>
             <textarea name="descripcion" id="descripcion" cols="" rows="8"
-                class="border-gray-300 w-full focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                class="border w-full focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                 placeholder="Escribe la descripción (no obligatorio este campo)"></textarea>
         </div>
 

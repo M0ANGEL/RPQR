@@ -1,57 +1,67 @@
 <x-app-layout>
+    <div class="container mx-auto p-2">
+        <div class="bg-white  shadow rounded-lg p-6">
+            <h1 class="text-xl font-semibold mb-4 text-gray-900 ">Reporte De Impresora</h1>
+            <form action="#" method="POST">
+                @csrf
+                @method('PUT')
+                <h4 class="mt-4 mb-4"><b>Informacion del reporte / Ubicacion</b></h4>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                    <div>
+                        <label>Fecha de reporte </label>
+                        <input type="text" class="border p-2 rounded w-full" value="{{ $Copyparte->created_at }}"
+                            readonly>
+                    </div>
+                    <div class="flex-1">
+                        <label>Piso</label>
+                        <input type="text" class="border p-2 rounded w-full" value="{{ $Copyparte->piso }}" readonly>
+                    </div>
+                    <div class="flex-1">
+                        <label>Area</label>
+                        <input type="text" class="border p-2 rounded w-full" value="{{ $Copyparte->area }}" readonly>
+                    </div>
+                </div>
+                <h4 class="mt-4 mb-4"><b>Informacion de la maquina</b></h4>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                    <div class="flex-1">
+                        <label>Marca de maquina</label>
+                        <input type="text" class="border p-2 rounded w-full" value="{{ $Copyparte->marca }}"
+                            readonly>
+                    </div>
 
-    <form action="#" class="bg-white rounded-lg p-6" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 1);">
-        {{-- /* Sombra del formulario */ --}}
-        <h1 style="color: blue; text-align: center; font-size: 17px;" class="mb-4"><b>Datos de la impresora</b></h1>
-        <div class="mb-4">
-            <x-label>Fecha de reporte</x-label>
-            <x-input class="w-full" value="{{ $Copyparte->created_at }}" readonly required />
-        </div>
-        <div class="mb-4">
-            <x-label>Modelo de maquina</x-label>
-            <x-input class="w-full" value="{{ $Copyparte->modelo }}" readonly required />
-        </div>
-        <div class="mb-4">
-            <x-label>Serial de maquina</x-label>
-            <x-input class="w-full" value="{{ $Copyparte->serial }}" readonly required />
-        </div>
-        <div class="mb-4">
-            <x-label>Marca de maquina</x-label>
-            <x-input class="w-full" value="{{ $Copyparte->marca }}" readonly required />
-        </div>
-        <h2 style="color: blue; text-align: center; font-size: 17px;" class="mb-4"><b>Ubicación</b></h2>
-        <div class="mb-4">
-            <x-label>Piso</x-label>
-            <x-input class="w-full" value="{{ $Copyparte->piso }}" readonly required />
-        </div>
-        <div class="mb-4">
-            <x-label>Área</x-label>
-            <x-input class="w-full" value="{{ $Copyparte->area }}" readonly />
-        </div>
+                    <div class="flex-1">
+                        <label>Modelo de maquina</label>
+                        <input type="text" class="border p-2 rounded w-full"value="{{ $Copyparte->modelo }}"
+                            readonly>
+                    </div>
+                    <div class="flex-1">
+                        <label>Serial de maquina</label>
+                        <input type="text" class="border p-2 rounded w-full" value="{{ $Copyparte->serial }}"
+                            readonly>
+                    </div>
+                </div>
 
-        <h2 style="color: blue; text-align: center; font-size: 17px;" class="mb-4"><b>Reporte</b></h2>
-        <div class="mb-4">
-            <x-label>Problema de la maquina</x-label>
-            <x-input class="w-full" value="{{ $Copyparte->problema }}" readonly required />
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label>Problema</label>
+                        <input type="text" class="border p-2 rounded w-full" value="{{ $Copyparte->problema }}"
+                            readonly>
+                    </div>
+                    @if ($Copyparte->problema === 'Codigo')
+                        <div class="mb-4">
+                            <x-label>Código</x-label>
+                            <x-input class="w-full" value="{{ $Copyparte->codigo }}" readonly required />
+                        </div>
+                    @endif
+                </div>
+
+                <div class="mb-4">
+                    <x-label>Descripción detallada del problema</x-label>
+                    <textarea cols="" rows="8"
+                        class="border-gray-300 w-full focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                        placeholder="Escribe la descripción (no obligatorio este campo)" readonly>{{ $Copyparte->descripcion }}</textarea>
+                </div>
+            </form>
         </div>
-
-        @if ($Copyparte->problema === 'Codigo')
-            <div class="mb-4">
-                <x-label>Código</x-label>
-                <x-input class="w-full" value="{{ $Copyparte->codigo }}" readonly required />
-            </div>
-        @endif
-
-        <div class="mb-4">
-            <input type="hidden" value="2" name="estado">
-        </div>
-
-        <div class="mb-4">
-            <x-label>Descripción detallada del problema</x-label>
-            <textarea cols="" rows="8"
-                class="border-gray-300 w-full focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                placeholder="Escribe la descripción (no obligatorio este campo)" readonly>{{ $Copyparte->descripcion }}</textarea>
-        </div>
-
-    </form>
+    </div>
 </x-app-layout>

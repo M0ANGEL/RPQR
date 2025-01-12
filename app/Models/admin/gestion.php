@@ -25,10 +25,14 @@ class gestion extends Model
         'estado_sebthi',
         'estado_servinte',
         'reporte',
-        'grupo'
+        'grupo',
+        'estado',
+        'rechazo',
+        'perfil'
     ];
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 }

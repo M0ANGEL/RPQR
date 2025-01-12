@@ -1,0 +1,3 @@
+estados para tikes
+[0] sisteas
+[1] desarrollo

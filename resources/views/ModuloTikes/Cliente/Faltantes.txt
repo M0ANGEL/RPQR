@@ -1,0 +1,3 @@
+Falta implemantar la logica para que depende el departamento me de los dems campos
+
+o que sean buscables, asi se agregan todos de una vez y ya

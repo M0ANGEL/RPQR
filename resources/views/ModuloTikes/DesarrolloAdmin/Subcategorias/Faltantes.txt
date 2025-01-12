@@ -1,0 +1,12 @@
+requiere
+
+[x]crear
+[x]inactivar
+[x]quien creo la categoria
+[x]prioridades:
+    1 BAJA
+    2 MEDIA
+    3 ALTA
+[]estados
+    1 activa
+    2 incativa

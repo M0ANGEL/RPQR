@@ -27,11 +27,11 @@ class EntregaController extends Controller
         $busqueda = $request->get('text', ''); // Proporciona un valor por defecto si 'text' no está presente
 
         // Ejecuta la consulta para obtener los datos
-        $datos = Registros::where('estado',0)->select('id', 'activo')
+        $datos = Registros::where('estado', 0)->select('id', 'activo')
             ->where('activo', 'like', '%' . $busqueda . '%')
             ->get(); // Asegúrate de ejecutar la consulta
 
-        return view('Inventarios.entrega.create',compact('datos', 'busqueda'));
+        return view('Inventarios.entrega.create', compact('datos', 'busqueda'));
     }
 
     /**
@@ -44,10 +44,12 @@ class EntregaController extends Controller
             'bodega' => 'required',
             'piso' => 'required',
             'fecha_entrega' => 'required',
-            'pareja','mouse','teclado',
+            'pareja',
+            'mouse',
+            'teclado',
             'equiposPC_id'
         ]);
-    
+
         // Crear el nuevo registro en la tabla Registro
         $registro = Inventario::create([
             'bodega' => $request->bodega,
@@ -58,31 +60,31 @@ class EntregaController extends Controller
             'teclado' => $request->teclado,
             'equiposPC_id' => $request->equiposPC_id,
         ]);
-    
+
         // Obtener el modelo Campo2 relacionado
         $campo2 = Registros::find($request->equiposPC_id);
 
-       /*  return $campo2; */
-    
+        /*  return $campo2; */
+
         // Verificar si el estado está en falso y actualizarlo a verdadero
         if ($campo2 && $campo2->estado === 0) {
             $campo2->estado = 1;
             $campo2->save();
         }
-    
+
         // Mostrar un mensaje de éxito en la sesión
         session()->flash('swal', [
             'icon' => 'success',
             'title' => 'Bien hecho',
             'text' => 'La entrega se creó correctamente',
         ]);
-    
+
         // Redirigir a la ruta especificada
-        return redirect()->route('Inventarios_Entrega.create'); 
+        return redirect()->route('Inventarios_Entrega.create');
     }
 
-   
-    
+
+
     public function show(Inventario $inventario)
     {
         //

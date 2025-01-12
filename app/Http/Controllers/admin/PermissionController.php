@@ -10,8 +10,8 @@ class PermissionController extends Controller
 {
     public function index()
     {
-       $permissions = ModelsPermission::paginate(12);
-        return view('admin.permissions.index',compact('permissions'));
+        $permissions = ModelsPermission::paginate(12);
+        return view('admin.permissions.index', compact('permissions'));
     }
 
     /**
@@ -28,18 +28,18 @@ class PermissionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'=>['required', 'unique:permissions,name']
+            'name' => ['required', 'unique:permissions,name']
         ]);
 
         $permissions = ModelsPermission::create($request->all());
 
-        session()->flash('swal',[
+        session()->flash('swal', [
             'icon' => 'succes',
-            'title'=>'Bien hecho',
-            'text'=>'El permiso se creo correctamente',
+            'title' => 'Bien hecho',
+            'text' => 'El permiso se creo correctamente',
         ]);
 
-        return redirect()->route('permissions.edit',$permissions);
+        return redirect()->route('permissions.create', $permissions);
     }
 
     /**
@@ -55,7 +55,7 @@ class PermissionController extends Controller
      */
     public function edit(ModelsPermission $permission)
     {
-        return view('admin.permissions.edit',compact('permission'));
+        return view('admin.permissions.edit', compact('permission'));
     }
 
     /**
@@ -64,18 +64,18 @@ class PermissionController extends Controller
     public function update(Request $request, ModelsPermission $permission)
     {
         $request->validate([
-            'name'=>['required','unique:permissions,name,' . $permission->id]
+            'name' => ['required', 'unique:permissions,name,' . $permission->id]
         ]);
 
         $permission->update($request->all());
 
-        session()->flash('swal',[
+        session()->flash('swal', [
             'icon' => 'success',
-            'title'=>'Bien hecho',
-            'text'=>'El permiso se creo correctamente',
+            'title' => 'Bien hecho',
+            'text' => 'El permiso se creo correctamente',
         ]);
 
-        return view('admin.permissions.edit',compact('permission'));
+        return view('admin.permissions.edit', compact('permission'));
     }
 
     /**
@@ -85,11 +85,11 @@ class PermissionController extends Controller
     {
         $permission->delete();
 
-        
-        session()->flash('swal',[
+
+        session()->flash('swal', [
             'icon' => 'success',
-            'title'=>'Bien hecho',
-            'text'=>'El permiso se elimino correctamente',
+            'title' => 'Bien hecho',
+            'text' => 'El permiso se elimino correctamente',
         ]);
 
         return redirect()->route('permissions.index');

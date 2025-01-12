@@ -1,0 +1,8 @@
+requiere
+
+[x]crear
+[x]inactivar
+[x]quien creo la categoria
+[x]estados
+    1 activa
+    2 incativa

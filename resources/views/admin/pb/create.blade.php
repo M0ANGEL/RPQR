@@ -1,91 +1,123 @@
 <x-app-layout>
-
-    <form action="{{route('gestion.store')}}" method="POST" 
-    class="bg-white rounded-lg p-6" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 1); "> {{-- /* Sombra del formulario */ --}}
-            @csrf
+    <div class="container mx-auto p-2">
+        <div class="bg-white shadow rounded-lg p-6">
             <h1 style="color: blue; text-align: center;"><b>DATOS DEL USUARIO</b></h1>
-            <div class="mb-4">
-                <x-label>
-                    Nombre Completo
-                </x-label>
-                <x-input name="name" class="w-full mb-4"/>
-            </div>
-            <div class="mb-4">
-                <x-label>
-                    Cedula
-                </x-label>
-                <x-input name="cedula" class="w-full mb-4"/>
-            </div>
-            <div class="mb-4">
-                <x-label>
-                    Usuario servinte
-                </x-label>
-                <x-input name="usuario_servinte" class="w-full mb-4"/>
-            </div>
-            <div class="mb-4">
-                <x-label>
-                    Usuario Sebthi
-                </x-label>
-                <x-input name="usuario_sebthi" class="w-full mb-4"/>
-            </div>
-            <div class="mb-4">
-                <x-label>
-                    Requerimiento
-                </x-label>
-                <x-select class="w-full" name="pb">    
-                   <option value="cambio_bodega">Cambio de bodega</option>
-                   <option value="cambio_permiso">Cambio de permisos</option>
-                </x-select>
-            </div>
-            <div class="mb-4">
-                <x-label>
-                    Bodega nueva
-                </x-label>
-                <x-select class="w-full" name="bodega_nueva">    
-                   <option value="NO_APLICA">NO APLICA</option>
-                   <option value="w001">w001</option>
-                   <option value="w003">w003</option>
-                   <option value="w004">w004</option>
-                   <option value="w005">w005</option>
-                   <option value="w007">w007</option>
-                   <option value="w011">w011</option>
-                   <option value="w012">w012</option>
-                   <option value="w013">w013</option>
-                   <option value="w017">w017</option>
-                   <option value="wvit">Wvit</option>
-                </x-select>
-            </div>
-            <h2 style="color: blue; text-align: center;"><b>DATOS USUARIO REFERENCIA</b></h2>
-            <div>
-                <x-label>
-                    Usuario referencia servinte
-                </x-label>
-                <x-input name="usuario_clonar_servinte" class="w-full mb-4"/>
-            </div>
-            <div>
-                <x-label>
-                    Usuario referencia sebthi
-                </x-label>
-                <x-input name="usuario_clonar_sebthi" class="w-full mb-4"/>
-            </div>
-            <div>
-                <x-label>
-                    Cedula de usuario referencia
-                </x-label>
-                <x-input name="cedula_usuario_referencia" class="w-full mb-4"/>
-            </div>
+            <p class="text-gray-900 mb-6"><b>Llenar todos los datos para una solicitud completa</b></p>
+            <form action="{{ route('gestion.store') }}" method="POST">
+                @csrf
+                <div class="flex flex-wrap gap-4 mb-6">
+                    <div>
+                        <label>Nombre Completo</label>
+                        <input type="text" name="name" placeholder="Ejemplo: Miguel Angel Riasco"
+                            class="border p-2 rounded w-full">
+                    </div>
+                    <div class="flex-1">
+                        <label>Numero Cedula</label>
+                        <input type="text" name="cedula" class="border p-2 rounded w-full" pattern="[0-9]*"
+                            inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                    </div>
+                    <div>
+                        <label>Usuario Servinte</label>
+                        <input type="text" name="usuario_servinte" class="border p-2 rounded w-full">
+                    </div>
+                    <div>
+                        <label>Perfil | Cargo</label>
+                        <select class="border p-2 rounded w-full" name="perfil">
+                            <option value=""></option>
+                            <option value="Patinador">Patinador</option>
+                            <option value="Aux farmacia">Aux farmacia</option>
+                            <option value="Regente">Regente</option>
+                            <option value="Regente Bodega">Regente Bodega</option>
+                            <option value="Quimico">Quimico</option>
+                            <option value="Auditoria">Auditoria</option>
+                        </select>
+                    </div>
 
-            <div>
-                <x-label>
-                    Motivo de solicitud
-                </x-label>
-                <textarea name="reporte" id=""  rows="4" class="border-gray-300 mb-4 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full"></textarea>
-            </div>
 
-            <div class="flex justify-end">
-                <x-button style="background: green;">
-                    <b>SOLICITAR</b>
-                </x-button>
-            </div>
-        </form>  
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                    <div>
+                        <label>Usuario Sebthi</label>
+                        <input type="text" name="usuario_sebthi" class="border p-2 rounded w-full">
+                    </div>
+                    <div>
+                        <label>Requerimiento</label>
+                        <select id="requerimiento" class="border p-2 rounded w-full" name="pb"
+                            onchange="toggleBodegaNueva()">
+                            <option value="??"><-- Seleccione un requerimiento --></option>
+                            <option value="Cambio o asignacion de permisos">Cambio o asignacion de permisos</option>
+                            <option value="Cambio o asignacion de bodega">Cambio o asignacion de bodega</option>
+                        </select>
+                    </div>
+                    <div id="bodegaNuevaContainer" style="display: none;">
+                        <label>Bodega Nueva</label>
+                        <select class="border p-2 rounded w-full" name="bodega_nueva">
+                            <option value=""></option>
+                            <option value="w001 | Farmacia Principal">Farmacia Principal</option>
+                            <option value="w003 | Farmacia Operaciones">Farmacia Operaciones</option>
+                            <option value="w004 | Alto Costo">Alto Costo</option>
+                            <option value="w005 | Farmacia Urgencias">Farmacia Urgencias</option>
+                            <option value="w007 | Farmacia Partos">Farmacia Partos</option>
+                            <option value="w011 | Bodega Controlados">Bodega Controlados</option>
+                            <option value="w012 | Alto Costo Principal">Alto Costo Principal</option>
+                            <option value="w013 | Farmacia Uci">Farmacia Uci</option>
+                            <option value="w017 | devolutivo">Farmacia Devolutivo</option>
+                            <option value="wvit | Bodega General">Bodega General Wvit</option>
+                        </select>
+                    </div>
+                </div>
+                <br>
+                <p class="text-gray-900 mb-6"><b>Informacion usuario referencia. <br>
+                        Este usuario se usará para clonar los permisos.</b>
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                    <div class="flex-1">
+                        <label>Numero Cedula</label>
+                        <input type="text" name="cedula_usuario_referencia" class="border p-2 rounded w-full"
+                            pattern="[0-9]*" inputmode="numeric"
+                            oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                    </div>
+                    <div>
+                        <label>Usuario Sebthi</label>
+                        <input type="text" name="usuario_clonar_sebthi" class="border p-2 rounded w-full">
+                    </div>
+                    <div>
+                        <label>Usuario Servinte</label>
+                        <input type="text" name="usuario_clonar_servinte" class="border p-2 rounded w-full">
+                    </div>
+                </div>
+
+                <div>
+                    <x-label>Motivo de solicitud</x-label>
+                    <textarea name="reporte" id="" rows="4"
+                        class="border-gray-900 mb-4 focus:border-indigo-500 focus:ring-indigo-900 rounded-md shadow-sm w-full"></textarea>
+                </div>
+
+                <div class="flex justify-end">
+                    <x-button type="submit" style="background: rgb(0, 128, 38);">
+                        <b>SOLICITAR</b>
+                    </x-button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function toggleBodegaNueva() {
+            const requerimiento = document.getElementById('requerimiento').value;
+            const bodegaNuevaContainer = document.getElementById('bodegaNuevaContainer');
+            if (requerimiento === 'Cambio o asignacion de bodega') {
+                bodegaNuevaContainer.style.display = 'block';
+            } else {
+                bodegaNuevaContainer.style.display = 'none';
+            }
+        }
+
+        // Ejecutar al cargar la página en caso de que ya esté seleccionada "Cambio de bodega"
+        document.addEventListener('DOMContentLoaded', function() {
+            toggleBodegaNueva();
+        });
+    </script>
 </x-app-layout>

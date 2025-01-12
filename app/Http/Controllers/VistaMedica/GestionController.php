@@ -11,9 +11,9 @@ class GestionController extends Controller
 {
     public function index()
     {
-        $reports = gestion::orderBy('id','desc')->select('*')
-        ->where('grupo','=',Auth::user()->bodega)->paginate(10);
-        return view('admin.pb.index',compact('reports'));
+        $reports = gestion::orderBy('id', 'desc')->select('*')
+            ->where('grupo', '=', Auth::user()->bodega)->paginate(10);
+        return view('admin.pb.index', compact('reports'));
     }
 
     /**
@@ -30,41 +30,43 @@ class GestionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'=>'required',
-            'cedula'=>'required',
-            'pb'=>'nullable',
+            'name' => 'required',
+            'cedula' => 'required',
+            'pb' => 'nullable',
             'bodega_nueva',
             'usuario_clonar_sebthi',
-            'usuario_clonar_servinte',            
-            'reporte', 
+            'usuario_clonar_servinte',
+            'reporte',
             'cedula_usuario_referencia',
             'usuario_sebthi',
             'usuario_servinte',
-            'grupo',           
+            'grupo',
+            'perfil',
         ]);
 
         gestion::create([
-            'name'=>$request->name,
-            'cedula'=>$request->cedula,
-            'pb'=>$request->pb,
-            'reporte'=>$request->reporte,
-            'bodega_nueva'=>$request->bodega_nueva,
-            'grupo'=>Auth::user()->bodega,
-            'usuario_clonar_sebthi'=>$request->usuario_clonar_sebthi,
-            'usuario_clonar_servinte'=>$request->usuario_clonar_servinte,
-            'cedula_usuario_referencia'=>$request->cedula_usuario_referencia,
-            'usuario_sebthi'=>$request->usuario_sebthi,
-            'usuario_servinte'=>$request->usuario_servinte,
-            'user_id'=> Auth::id(),
-            
+            'name' => $request->name,
+            'cedula' => $request->cedula,
+            'pb' => $request->pb,
+            'reporte' => $request->reporte,
+            'bodega_nueva' => $request->bodega_nueva,
+            'grupo' => Auth::user()->bodega,
+            'usuario_clonar_sebthi' => $request->usuario_clonar_sebthi,
+            'usuario_clonar_servinte' => $request->usuario_clonar_servinte,
+            'cedula_usuario_referencia' => $request->cedula_usuario_referencia,
+            'usuario_sebthi' => $request->usuario_sebthi,
+            'usuario_servinte' => $request->usuario_servinte,
+            'perfil' => $request->perfil,
+            'user_id' => Auth::id(),
+
         ]);
 
-        session()->flash('swal',[
-            'icon'=>'success',
-            'title'=>'Bien hecho',
-            'text'=>'La solicitud se creo corretamente',
-        ]); 
-        return redirect()->route('gestion.index'); 
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => 'Bien hecho',
+            'text' => 'La solicitud se creo corretamente',
+        ]);
+        return redirect()->route('gestion.index');
     }
 
     /**

@@ -1,27 +1,17 @@
-<nav x-data="{ open: false }" style="background: rgb(0, 0, 0);"
-    class=" {{-- bg-gray-800 --}} dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+<nav x-data="{ open: false }" style="background: rgb(13, 30, 69);" class=" {{-- bg-gray-800 --}} border-b border-gray-100 ">
     <!-- Primary Navigation Menu -->
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
-                <!-- Logo -->
-                {{-- <style>
-                    img{
-                        margin-left: 90px;
-                    }
-                </style>
-                <div class="shrink-0 flex items-center">
-                    <img src="{{ asset('images/circulo.png') }}" alt="" class="w-16 h-16 object-cover">
-                </div> --}}
-
-
-
-                <!-- Navigation Links -->
-                {{-- <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <a href="">CONTACTO</a>
-                </div> --}}
             </div>
+
+            @if (!auth()->check())
+                <script>
+                    window.location.href = "{{ route('login') }}"; // Redirige a la página de login si la sesión ha expirado
+                </script>
+            @endif
+
 
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <!-- Teams Dropdown -->
@@ -56,7 +46,7 @@
 
                         <x-slot name="content">
                             <!-- Account Management -->
-                            <div class="block px-4 py-2 text-xs text-gray-400">
+                            <div class="block px-4 py-2  text-xs text-gray-400">
                                 {{ __('Usuario') }}
                             </div>
                             {{-- para el perfil no activo aun --}}
@@ -70,12 +60,15 @@
                                 </x-dropdown-link>
                             @endif
 
-                            <div class="border-t border-gray-200 dark:border-gray-600"></div>
+                            <div class="border-t border-gray-700 dark:border-gray-600"></div>
 
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}" x-data>
                                 @csrf
 
+                                <x-dropdown-link href="{{ route('cambio.index') }}">
+                                    {{ __('Cambiar Contraseña') }}
+                                </x-dropdown-link>
                                 <x-dropdown-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
                                     {{ __('Cerrar Sesion') }}
                                 </x-dropdown-link>

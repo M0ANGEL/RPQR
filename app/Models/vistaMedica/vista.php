@@ -9,7 +9,7 @@ class vista extends Model
 {
     use HasFactory;
 
-    protected $table = 'vistas';
+    protected $table = 'vista';
 
     protected $fillable  = [
         'acttor',

@@ -1,0 +1,27 @@
+se quiere en el modulo de Administrar tikes
+
+[x] Vista de bandeja de los tikes
+[x] Info previa de los tikes
+Estados:
+    [x]Si esta libre el tike y no esta en gestion por otro analista
+    []Rechazo de tike
+    [x]Cierre de tike
+[]Vista de tike cerrados
+[]Vista de tike Calificados
+[]Vista de tike Pendientes por calificacion
+
+Modulo Categorias
+[x]Administrar Categorias
+[x]Administrar SubCategorias
+
+
+errore
+[x]doble boton para nada
+[x] escritura tikes - ticket
+
+
+Estados
+Autorizado 
+    0: NO requiere
+    1: Re quiere
+    2: autorizado

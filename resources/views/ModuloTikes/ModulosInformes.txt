@@ -1,0 +1,83 @@
+Categorias: Son las categorias padres, para la hora de crear ticket se selecione y traiga las
+  sub categorias del problema
+    Estados:
+        [1] Activa: cuando estan activa son visibles para crear ticket
+        [2] inactiva: cuando estan inactiva no salen para crear ticket
+    Crear categoria:
+        Al crear una categoria se toma por defaul estado activo, se guarda el usuario
+        que lo creo.
+    Editar categoria:
+        Se puede editar todo, menos el creador de la categoria y el id
+
+Sub categoria: Son los problemas referente a las categorias padres, estas se traen a la hora
+  de selecciona una categoria, de pende la categoria asi mismo veran las subcategorias hijas
+    Estados:
+        Estado de la subcategorias:
+            [1] Activas, se ran visible a la hora de crear ticket
+            [2] inactivas, no se ran visible a la hora de crear ticket
+        Estado de prioridad:
+            [1] Baja
+            [2] Media
+            [3] Alta
+        Estado area: Esta es para dividir las area sistema y desarrollo para saber quien se encarga
+        del tike.
+            [0] Sistemas
+            [1] desarrollo
+        Estado de autorizacion: son subcategorias que si no se autorizan por el area encargada
+        no se pueden ejecutar:
+            [0] No necesitaautorizacion
+            [1] Necesita autorizacion
+            [2] Esta autrizado
+        
+Autorizar Ticket: si el ticket en la subcategoria se establece que se necesita autrizacion, al crear 
+    el ticket este queda en espera para poder realizar la gestion del mismo, este ira al modulo de 
+    autorizacion del ticket, la persona encargada lo autorizara.
+    Modulo:
+        Panel principal: En este vera informacio previa del ticket. dar en el boton
+                        de confirmar.
+        Panel Confirmacion: Aqui vera toda la informacion del ticket, tendra campo
+        de escribir algo y boton de autorizar. Al autorizar se ira ese ticket de su panel principal
+        y el estado de ese ticket cambiara a [2] Autorizado
+
+Crear ticket: Los usuarios crearan sus tickets y estos quedaran en su propio panel
+    el cual solo veran sus tickets creados, estos tendran estados.¨
+        [0] Pendiente: son los tickets que aun no estan en gestion.
+        [1] Gestion: son tickets que ya se estan realizando por parte del area encargada.
+        [2] realizados: tickets que ya fueron resueltos, estan a la espera de calificar.
+        [3] Calificados: cuando se caifica el ticket se va del panel principal y estara
+            en tickets cerrados de la vista del usuario.
+
+Modulo adminisracion de tickes: este modulo tando sistemas y desarrollo podran gestionar los tickets
+    que se crean, estos tickes se ubicaran de pendiendo la prioridad que tengan interno las subcategorias
+    siendo la alta primera, despues la media  por ultima la baja.
+        Panel principal: Aqui veremos los tickets y una informacio previa.
+            prioridad: la prioridad interna del tike.
+            Estado: estados del ticket.
+                [0] Pendiente: cuando el ticket no esat en gestion por nadie.
+                [1] Gestion: Cuando el ticket esta en gestion por alguien del area encargada.
+                        Estado gestion: 
+                            [YO] si el ticket esta en gestion por mi, al regresar podre volver
+                                a entrar a gestonar el ticket.
+                            [OTRO] si el ticket esta en gestio por otra persona, no podemos gestionar,
+                                solo ver el nombre de la persona que lo tiene en uso.
+
+        Cambiar area:Si hay tickets que por error la subcategoria se creo mal el area, y no son
+        del area en el que llego, se puede cambiar de area, al cambiar de area su estado cambia a
+        [0] Sistemas | [1] desarrollo
+        SI es 1 cambia a 0  si es 0 cambia a 1.
+
+        Estados de los tickets: si los tickes estan disponible, si necesitan autrizacion, si estan autrizados
+        si estan en gestion por alguien o en mi gestion.
+
+    Panel de gestion: Aqui veremos la informacion de ese ticken en concreto, si el ticket no esta autrizado
+        no se podra cerrar, el ticket si necesita autrizacion cuando se autorice se vera la respusta en caso que tenga
+        por la persoan encargada de autorizar.
+
+        Liberar Ticket: esto deja el ticket disponible de nuevo
+        Ticket realizando: Esto cambia el estado del ticket a [2] realizado.
+        Cuando el ticket se realiza se va del panel principal.
+    Calificados: Aqui veremos los tickes que ya estran full cerrados, el cual estaran calificados.
+    Pendiente calificar: aqui los tickets realizados pero que el usuario aun no califica.
+
+    
+

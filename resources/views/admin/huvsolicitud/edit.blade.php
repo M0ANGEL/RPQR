@@ -1,102 +1,113 @@
 <x-app-layout>
+    <!-- component -->
+    <div class="container mx-auto p-2">
+        <div class="bg-white  shadow rounded-lg p-6">
+            <h1 class="text-xl font-semibold mb-4 text-gray-900 ">Entrega Usuario Servinte</h1>
+            <form action="{{ route('solicitud.update', $solicitud) }}" method="POST">
+                @csrf
+                @method('PUT')
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                    <div>
+                        <label>Nombre Completo</label>
+                        <input type="text" class="border p-2 rounded w-full" value="{{ $solicitud->name }}" readonly>
+                    </div>
+                    <div class="flex-1">
+                        <label>Numero Documento</label>
+                        <input type="text" class="border p-2 rounded w-full" value="{{ $solicitud->cedula }}"
+                            readonly>
+                    </div>
+                    <div class="flex-1">
+                        <label>Numero Telefono</label>
+                        <input type="text" class="border p-2 rounded w-full" value="{{ $solicitud->telefono }}"
+                            readonly>
+                    </div>
+                </div>
 
-    <form action="{{route('solicitud.update',$solicitud)}}" method="POST"
-    class="bg-white rounded-lg p-6" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 1); "> {{-- /* Sombra del formulario */ --}}
-        @csrf
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div class="flex-1">
+                        <label>Bodega</label>
+                        <input type="text" class="border p-2 rounded w-full" value="{{ $solicitud->bodega }}"
+                            readonly>
+                    </div>
+                    <div class="flex-1">
+                        <label>Cargo</label>
+                        <input type="text" class="border p-2 rounded w-full" value="{{ $solicitud->cargo }}"
+                            readonly>
+                    </div>
+                </div>
 
-        @method('PUT')
-        <h2 style="color: blue; text-align: center;" class="mb-4"><b>Datos de usuarior</b></h2>
-        <div class="mb-4">
-            <x-label>
-                Nombre 
-            </x-label>
-            <x-input 
-            class="w-full" value="{{$solicitud->name}}" readonly required />
-        </div>
-        <div class="mb-4">
-            <x-label>
-                Cedula
-            </x-label>
-            <x-input 
-            class="w-full" value="{{$solicitud->cedula}}" readonly required />
-        </div>
-        <div class="mb-4">
-            <x-label>
-                Bodega
-            </x-label>
-            <x-input 
-             class="w-full" value="{{$solicitud->bodega}}" readonly required />
-        </div>
-        <div class="mb-4">
-            <x-label>
-                Area
-            </x-label>
-            <x-input 
-            class="w-full" value="{{$solicitud->area}}" readonly required />
-        </div>
-        <div class="mb-4">
-            <x-label>
-                Correo Redvital
-            </x-label>
-            <x-input 
-            class="w-full" value="{{$solicitud->correo_redv}}" readonly required />
-        </div>
-        <div class="mb-4">
-            <x-label>
-                Cargo
-            </x-label>
-            <x-input 
-           class="w-full" value="{{$solicitud->cargo}}" readonly required />
-        </div>
-        <h2 style="color: blue; text-align: center;" class="mb-4"><b>Datos de usuario aclonar</b></h2>
-        <div class="mb-4">
-            <x-label>
-                Nombre Completo Usuario Referencia
-            </x-label>
-            <x-input 
-            class="w-full" value="{{$solicitud->name_referencia}}" readonly required />
-        </div>
-        <div class="mb-4">
-            <x-label>
-                Usuario Referencia
-            </x-label>
-            <x-input 
-            class="w-full" value="{{$solicitud->usuario_clonar_huv}}" readonly  />
-        </div>
-        <div class="mb-4">
-            <x-label>
-                Cedula Usuario Referencia
-            </x-label>
-            <x-input 
-            class="w-full" value="{{$solicitud->cedula_clonar}}" readonly  />
-        </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div class="flex-1">
+                        <label>Area</label>
+                        <input type="text" class="border p-2 rounded w-full" value="{{ $solicitud->area }}" readonly>
+                    </div>
+                    <div class="flex-1">
+                        <label>Correo</label>
+                        <input type="text" class="border p-2 rounded w-full" value="{{ $solicitud->correo_redv }}"
+                            readonly>
+                    </div>
+                </div>
 
-        <h1 style="color: blue; text-align: center;" class="mb-4"><b>Credenciales de usuario</b></h1>
-        <div class="mb-4">
-            <x-label style="color: rgb(106, 8, 131)">
-                <b>Usuario de servinte</b>
-            </x-label>
-            <x-input 
-            name="login_servinte" type="text" class="w-full" required />
-        </div>
-        <div class="mb-4">
-            <x-label style="color: rgb(106, 8, 131)">
-                <b>Password de servinte</b>
-            </x-label>
-            <x-input 
-            name="password_servinte" type="text" class="w-full" required />
-        </div>
 
-        <div class="mb-4">
-            <input type="hidden" value="1" name="activo_servinte">
-        </div>
-        
-       
-        <div class="flex justify-end">
+                <p class="text-gray-900  mb-6">Informacion usuario referencia. <br>
+                    este usuario se usara para clonar los permisos
+                </p>
 
-            <x-button style="background: blue;">
-                CONFIRMAR CREACION
-            </x-button>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                    <div>
+                        <label>Nombre Completo</label>
+                        <input type="text" class="border p-2 rounded w-full"
+                            value="{{ $solicitud->name_referencia }}" readonly>
+                    </div>
+                    <div class="flex-1">
+                        <label>Numero Documento</label>
+                        <input type="text" class="border p-2 rounded w-full" value="{{ $solicitud->cedula_clonar }}"
+                            readonly>
+                    </div>
+                    <div>
+                        <label>Usuario Servinte</label>
+                        <input type="text" class="border p-2 rounded w-full"
+                            value="{{ $solicitud->usuario_clonar_huv }}" readonly>
+                    </div>
+                </div>
+
+                <hr style="border: 2px solid rgb(125, 11, 170); margin: 20px">
+                <p class="text-gray-900  mb-6">Informacion de la cuenta creada</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label>Usuario</label>
+                        <input type="text" name="login_servinte" class="border p-2 rounded w-full" required>
+                    </div>
+                    <div class="flex-1">
+                        <label>Contraseña</label>
+                        <input type="text" name="password_servinte" class="border p-2 rounded w-full" required>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <input type="hidden" value="1" name="activo_servinte">
+                </div>
+
+                <div class="flex justify-end">
+                    <x-button type="submit" style="background: rgb(0, 128, 38);">
+                        <b>Confirmar Credenciles</b>
+                    </x-button>
+                </div>
+            </form>
         </div>
-    </form>  
+    </div>
+
+
+
+
+    @push('js')
+        <script>
+            /* envio de formilarios extras */
+            function busqueda() {
+                form = document.getElementById('busqueda');
+                form.submit();
+            }
+        </script>
+    @endpush
+
 </x-app-layout>

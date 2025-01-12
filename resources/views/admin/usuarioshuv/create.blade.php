@@ -1,117 +1,104 @@
 <x-app-layout>
+    <!-- component -->
+    <div class="container mx-auto p-2">
+        <div class="bg-white  shadow rounded-lg p-6">
+            <h1 class="text-xl font-semibold mb-4 text-gray-900 ">Solicitud Creacion Usuario</h1>
+            <p class="text-gray-600  mb-6">Llenar todo los datos para una solicitud completa </p>
+            <form action="{{ route('huv.store') }}" method="POST">
+                @csrf
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                    <div>
+                        <label>Nombre Completo</label>
+                        <input type="text" name="name" placeholder="Ejemplo: Miguel Angel"
+                            class="border p-2 rounded w-full">
+                    </div>
+                    <div class="flex-1">
+                        <label>Numero Documento</label>
+                        <input type="text" name="cedula" class="border p-2 rounded w-full" pattern="[0-9]*"
+                            inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                    </div>
+                    <div class="flex-1">
+                        <label>Numero Telefono</label>
+                        <input type="text" name="telefono" class="border p-2 rounded w-full" pattern="[0-9]*"
+                            inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                    </div>
+                </div>
 
-    <form action="{{route('huv.store')}}" method="POST" 
-    class="bg-white rounded-lg p-6" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 1); "> {{-- /* Sombra del formulario */ --}}
-            @csrf
-            <div class="mb-4">
-                <x-label>
-                    Nombre Completo
-                </x-label>
-                <x-input 
-                name="name"
-                class="w-full" 
-                required/>
-            </div>
-            <div class="mb-4">
-                <x-label>
-                    Numero de cedula
-                </x-label>
-                <x-input 
-                name="cedula"
-                class="w-full" 
-                required/>
-            </div>
-            <div class="mb-4">
-                <x-label>
-                    Telefono Usuario
-                </x-label>
-                <x-input 
-                name="telefono"
-                class="w-full" required
-                placeholder="Ejemplo 3110100011" />
-            </div>
-            <div class="mb-4">
-                <x-label>
-                    Bodega
-                </x-label>
-                {{-- componente select --}}
-                <x-select class="w-full" name="bodega" >
-                    @foreach ($bodegas as $bodega)           
-                        <option value={{$bodega->name}}>{{$bodega->name}}</option>
-                    @endforeach
-            </x-select>
-            </div>
-            <div class="mb-4">
-                <x-label>
-                    Perfil de usuario
-                </x-label>
-                <x-select class="w-full" name="cargo">
-                    <option value="Aux Farmacia">Aux Farmacia</option>
-                    <option value="Patinador">Patinador</option>
-                    <option value="Regente">Regente</option>
-                    <option value="Quimico">Quimico</option>
-                    <option value="auditoria">Auditoria</option>
-                </x-select>
-            </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label>Perfil Usuario</label>
+                        <select class="border p-2 rounded w-full" name="cargo">
+                            <option>Selecione Un Perfil</option>
+                            <option value="Aux Farmacia">Aux Farmacia</option>
+                            <option value="Patinador">Patinador</option>
+                            <option value="Regente">Regente</option>
+                            <option value="Quimico">Quimico</option>
+                            <option value="auditoria">Auditoria</option>
+                        </select>
+                    </div>
+                    <div class="flex-1">
+                        <label>Bodega Asignar</label>
+                        <select class="border p-2 rounded w-full" name="bodega">
+                            <option>Seleccione Farmacia</option>
+                            <option value="Farmacia Principal">Farmacia Principal</option>
+                            <option value="Farmacia Alto Costo - Principal">Farmacia Alto Costo - Principal</option>
+                            <option value="Farmacia Bodega">Farmacia Bodega</option>
+                            <option value="Farmacia Urgencias">Farmacia Urgencias</option>
+                            <option value="Farmacia Alto costo">Farmacia Alto costo</option>
+                            <option value="Farmacia Uci">Farmacia Uci</option>
+                            <option value="Farmacia Operaciones">Farmacia Operaciones</option>
+                            <option value="Farmacia Operaciones">Farmacia Partos</option>
+                        </select>
+                    </div>
+                </div>
 
-            <h1 class="mb-4 mt-4" style="color: blue"><b>Usuarios de referencia para crear perfil nuevo</b></h1>
-            <div class="mb-4">
-                <x-label>
-                    Nombre Completo Usuario Referencia
-                </x-label>
-                <x-input 
-                name="name_referencia"
-                class="w-full" 
-                placeholder="Nombre Completo" required/>
-            </div>
-            <div class="mb-4">
-                <x-label>
-                    Usuario Referencia Servinte
-                </x-label>
-                <x-input 
-                name="usuario_clonar_huv"
-                class="w-full" 
-                placeholder="Usuario clonar" required/>
-            </div>
-            <div class="mb-4">
-                <x-label>
-                    Usuario Referencia Sebthi
-                </x-label>
-                <x-input 
-                name="usuario_clonar_sebthi"
-                class="w-full" 
-                placeholder="Usuario clonar" required/>
-            </div>
-            <div class="mb-4">
-                <x-label>
-                    Cedula Usuario Referencia sin(.)
-                </x-label>
-                <x-input 
-                name="cedula_clonar"
-                class="w-full" 
-                placeholder="Cedula" required/>
-            </div>
-            <div class="flex justify-end">
-                <x-button>
-                    Crear
-                </x-button>
-            </div>
-        </form>
-    
+                <p class="text-gray-900  mb-6">Informacion usuario referencia. <br>
+                    este usuario se usara para clonar los permisos
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label>Nombre Completo</label>
+                        <input type="text" name="name_referencia" class="border p-2 rounded w-full">
+                    </div>
+                    <div class="flex-1">
+                        <label>Numero Documento</label>
+                        <input type="text" name="cedula_clonar" class="border p-2 rounded w-full" pattern="[0-9]*"
+                            inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label>Usuario Sebthi</label>
+                        <input type="text" name="usuario_clonar_sebthi" class="border p-2 rounded w-full">
+                    </div>
+                    <div>
+                        <label>Usuario Servinte</label>
+                        <input type="text" name="usuario_clonar_huv" class="border p-2 rounded w-full">
+                    </div>
+                </div>
+
+                <div class="flex justify-end">
+                    <x-button type="submit" style="background: rgb(0, 128, 38);">
+                        <b>Registrar Entrega</b>
+                    </x-button>
+                </div>
+            </form>
+        </div>
+    </div>
 
 
-    
+
 
     @push('js')
         <script>
             /* envio de formilarios extras */
-                function busqueda(){
-                    form = document.getElementById('busqueda');
-                    form.submit();  
-                }
-
+            function busqueda() {
+                form = document.getElementById('busqueda');
+                form.submit();
+            }
         </script>
-
     @endpush
-   
+
 </x-app-layout>

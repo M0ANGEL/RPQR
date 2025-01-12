@@ -13,6 +13,8 @@
     {{-- qr --}}
     <script src="https://unpkg.com/qrcode-reader/qrcode.js"></script>
 
+    {{-- alerta --}}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     {{-- js para movimientp --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
@@ -33,6 +35,15 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <!-- Include CSS for Select2 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+
+    <!-- Include jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- Include JS for Select2 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
 
     <!-- Styles -->
     @livewireStyles
@@ -48,8 +59,8 @@
         } */
 
         body {
-            background: url({{ asset('images/full1.jpg') }}) no-repeat center center fixed;
-            background-size: cover;
+            /*  background: url({{ asset('images/medicamentoFondo.png') }}) no-repeat center center fixed;
+            background-size: cover; */
             background-color: rgb(0, 0, 0);
             /* Esto es por si la imagen no carga o es pequeña */
         }
@@ -80,7 +91,7 @@
         </svg>
     </button>
 
-    @include('layouts.admin.aside')
+    @include('layouts.admin.sidebar')
 
     {{-- @livewire('navigation-menu') --}}{{-- cerrar sesion --}}
 

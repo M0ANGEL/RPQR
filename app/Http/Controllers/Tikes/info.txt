@@ -1,0 +1,11 @@
+los estados son
+
+0 = pendinetes
+1= gestion
+2 = realizado
+ si esta realizado el estado de calificar cambia a calificar servicio, 
+ dentro de calificar, se califica y se cierra el tike en el estado 3
+3 = tike cerrado
+
+
+los modulos estan funcionado bien, al momento todo esta full

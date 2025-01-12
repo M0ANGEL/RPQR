@@ -71,12 +71,13 @@ class User extends Authenticatable
         ];
     }
 
-    public function reports(){
+    public function reports()
+    {
         return $this->hasMany(report::class);
     }
 
-    public function huvs(){
+    public function huvs()
+    {
         return $this->hasMany(huv::class);
     }
-
 }

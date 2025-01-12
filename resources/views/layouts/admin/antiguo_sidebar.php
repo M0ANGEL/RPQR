@@ -27,9 +27,9 @@
 
         [
             /* error driver **/
-            'name' => 'Error Driver',
-            'url' => route('vistamedica.index'),
-            'active' => request()->routeIs('vistamedica.*'),
+            'name' => 'Planeacion',
+            'url' => route('Planeacion.create'),
+            'active' => request()->routeIs('ErroresDriver.*'),
             'icon' => 'fa-regular fa-circle',
             'can' => 'hallazgos_indicador',
         ],
@@ -37,8 +37,8 @@
         [
             /* Entrega Incompleta */
             'name' => 'Entrega Incompleta',
-            'url' => route('vistamedica.index'),
-            'active' => request()->routeIs('.*'),
+            'url' => route('EntregaIncompleta.create'),
+            'active' => request()->routeIs('EntregaIncompleta.*'),
             'icon' => 'fa-regular fa-circle',
             'can' => 'hallazgos_indicador',
         ],
@@ -61,16 +61,16 @@
         /* Recepcion Tecnica*/
         [
             'name' => 'Recepcion Tecnica',
-            'url' => route('redvital.index'),
-            'active' => request()->routeIs('redvital.*'),
+            'url' => route('RecepcionTecnica.create'),
+            'active' => request()->routeIs('RecepcionTecnica.*'),
             'icon' => 'fa-regular fa-circle',
             'can' => 'hallazgos_indicador',
         ],
         [
             /* Conifabilidad Del Inventario */
             'name' => 'Confiabilidad Del Inventario',
-            'url' => route('vistamedica.index'),
-            'active' => request()->routeIs('.*'),
+            'url' => route('Confiabilidad-Inventario.create'),
+            'active' => request()->routeIs('Confiabilidad-Inventario.*'),
             'icon' => 'fa-regular fa-circle',
             'can' => 'hallazgos_indicador',
         ],
@@ -142,6 +142,53 @@
         ],
     ];
 
+    $botonMypres = [
+        'can' => 'mypres',
+    ];
+
+    $presmys = [
+        /*  Crear Paciente*/
+        [
+            'name' => 'Crear Paciente',
+            'url' => route('indicadores.create'),
+            'active' => request()->routeIs('indicadores.index'),
+            'icon' => 'fa-regular fa-circle',
+            'can' => 'hallazgos_indicador',
+        ],
+        /* Entregar Medicamentos */
+        [
+            'name' => 'Entregar Medicamentos',
+            'url' => route('Dispensado.create'),
+            'active' => request()->routeIs('Dispensado.*'),
+            'icon' => 'fa-regular fa-circle',
+            'can' => 'dispensado_indicador',
+        ],
+        [
+            /* Mipres Activos  */
+            'name' => 'Mipres Activos',
+            'url' => route('PenditesHuv.create'),
+            'active' => request()->routeIs('PenditesHuv.*'),
+            'icon' => 'fa-regular fa-circle',
+            'can' => 'PenditesHuv_indicador',
+        ],
+        [
+            /* Historial Pacientes  */
+            'name' => 'Historial Pacientes',
+            'url' => route('PenditesHuv.create'),
+            'active' => request()->routeIs('PenditesHuv.*'),
+            'icon' => 'fa-regular fa-circle',
+            'can' => 'PenditesHuv_indicador',
+        ],
+        [
+            /* Reportes  */
+            'name' => 'Reportes',
+            'url' => route('PenditesHuv.create'),
+            'active' => request()->routeIs('PenditesHuv.*'),
+            'icon' => 'fa-regular fa-circle',
+            'can' => 'PenditesHuv_indicador',
+        ],
+    ];
+
     $superadmin = [
         /* nuevos usuarios*/
         [
@@ -173,6 +220,14 @@
             'url' => route('permissions.index'),
             'active' => request()->routeIs('permissions.*'),
             'icon' => 'fa-solid fa-key',
+            'can' => 'crear_permisos',
+        ],
+        /* usuaios all*/
+        [
+            'name' => 'Usuarios Login',
+            'url' => route('AllUsuarios'),
+            'active' => request()->routeIs('AllUsuarios.*'),
+            'icon' => 'fa-solid fa-user-clock',
             'can' => 'crear_permisos',
         ],
     ];
@@ -370,7 +425,6 @@
     ];
 @endphp
 
-
 <style>
     #super:hover {
         background: rgb(219, 26, 32);
@@ -379,7 +433,7 @@
 
 
     .submenus_link {
-        background: rgb(103, 1, 154);
+        background: rgb(54, 16, 73);
         border-radius: 10px;
     }
 
@@ -412,10 +466,10 @@
     class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
     aria-label="Sidebar">
     <div class="h-full px-3 py-4 overflow-y-auto dark:bg-gray-50" style="background: rgb(0, 0, 0)/* #0b1f6d */;">
-
         <ul class="space-y-2 font-medium">
-
-            @canany($sebthi['can'])
+            {{-- link externos --}}
+            <li>
+                @canany($sebthi['can'])
                 <li style="background: rgb(133, 16, 149); border-radius: 7px;" class="no">
                     <a href="https://farmartltda-my.sharepoint.com/:f:/g/personal/soportehuv_farmartips_com/EtcBU2LGaitDhil9D1qo9E4BMvXBEDldtQuxF9wAchPeOg?e=abRvca"
                         class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-red-500 dark:hover:bg-gray-700 group "
@@ -447,17 +501,19 @@
                     </a>
                 </li>
             @endcanany
+            </li>
 
             {{-- Botón para activar el menú de indicadores --}}
             <li>
                 @canany($menuIndicadores['can'])
-                    <button type="button" id="subMenu" style="text-align: center; padding-right: 10px"
-                        class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-red-500 dark:hover:bg-gray-700 group">
+                    <button type="button" id="subMenu"
+                        style="text-align: center; padding-right: 10px"class=" flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-red-500 dark:hover:bg-gray-700 group">
                         <i class="fa-solid fa-signal"></i>
                         <span class="ms-3 items-center">Indicadores</span>
                         <span class="ml-4"><i class="fa-solid fa-caret-down"></i></span>
                     </button>
                 @endcanany
+
                 <ul id="sub_menu" class="submenu space-y-2 font-medium">
                     <div class="submenus_link">
                         @foreach ($indicadores as $indicador)
@@ -555,6 +611,30 @@
                     </div>
                 </ul>
             </li>
+            {{-- presmy --}}
+            <li>
+                @canany($botonMypres['can'])
+                    <button type="button" id="subMenuMipres" style="text-align: center; padding-right: 10px"
+                        class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-red-500 dark:hover:bg-gray-700 group">
+                        <i class="fa-brands fa-squarespace"></i>
+                        <span class="ms-3 items-center">Gestion Mypresis</span>
+                        <span class="ml-4"><i class="fa-solid fa-caret-down"></i></span>
+                    </button>
+                @endcanany
+                <ul id="Mypres" class="submenu space-y-2 font-medium">
+                    <div class="submenus_link">
+                        @foreach ($presmys as $presmy)
+                            <li>
+                                <a href="{{ $presmy['url'] }}"
+                                    class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-red-500 dark:hover:bg-gray-700 group {{ $inventario['active'] ? 'bg-blue-500' : '' }}">
+                                    <i class="{{ $presmy['icon'] }}"></i>
+                                    <span class="ms-3">{{ $presmy['name'] }}</span>
+                                </a>
+                            </li>
+                        @endforeach
+                    </div>
+                </ul>
+            </li>
 
             @foreach ($links as $link)
                 @canany($link['can'] ?? [null])
@@ -584,6 +664,8 @@
             var inventario = document.getElementById('inventario'); //contenedor submenú inventario
             var subMenuAuditoria = document.getElementById('subMenuAuditoria'); //botón auditoria
             var auditoria = document.getElementById('Auditoria'); //contenedor submenú auditoria
+            var subMenuMipres = document.getElementById('subMenuMipres'); //botón mypres
+            var Mypres = document.getElementById('Mypres'); //contenedor submenú mypres
 
             // Función para cerrar todos los submenús
             function cerrarSubMenus() {
@@ -591,6 +673,7 @@
                 subMenuAdminList.classList.remove('show');
                 inventario.classList.remove('show');
                 auditoria.classList.remove('show');
+                Mypres.classList.remove('show');
             }
 
             // Agregar eventos
@@ -612,6 +695,11 @@
             subMenuAuditoria.addEventListener('click', function() {
                 cerrarSubMenus();
                 auditoria.classList.toggle('show');
+            });
+
+            subMenuMipres.addEventListener('click', function() {
+                cerrarSubMenus();
+                Mypres.classList.toggle('show');
             });
         });
     </script>
