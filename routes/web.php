@@ -268,7 +268,7 @@ Route::put('TikectDisponibleDesarrollo/{TikectActivo}', [DesAdminController::cla
 /* cambiar area del ticket desarrollo */
 Route::get('CambiarAreaDesarrollo/{TikectActivo}', [DesAdminController::class, 'CambiarArea'])->name('CambiarAreaDesarrollo.edit');
 /* tikes cerrados administracion  desarrollo*/
-Route::get('TikectPendientesCalificados', [DesAdminController::class, 'tikesPendientesCalificar'])->name('TikectPendientesCalificadosDesarrollo.index');
+Route::get('TikectPendientesCalificadosDesarrollo', [DesAdminController::class, 'tikesPendientesCalificar'])->name('TikectPendientesCalificadosDesarrollo.index');
 Route::get('TikectCalificadosDesarrollo', [DesAdminController::class, 'tikesCalificados'])->name('TikectCalificadosDesarrollo.index');
 Route::get('VistaTikectSinCalificadosDesarrollo/{tickesPendiente}', [DesAdminController::class, 'VistaTikectSinCalificados'])->name('VistatikeSinCalificadosDesarrollo.show');
 Route::get('VistaTikectCerradosDesarrollo/{tickesCerrados}', [DesAdminController::class, 'VistaTikectCerrados'])->name('VistaTikectCerradosDesarrollo.show');
