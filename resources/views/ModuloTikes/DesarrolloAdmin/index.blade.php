@@ -185,7 +185,7 @@
                                         <p
                                             style="background: rgb(18, 33, 196); border-radius: 10px; padding: 6px; color: rgb(254, 254, 254);">
                                             <i class="fa-solid fa-rotate"></i>
-                                            <span>Cambiar Areaa</span>
+                                            <span>Cambiar Area</span>
                                         </p>
                                     </a>
                                 </button>
@@ -197,7 +197,7 @@
                                         style="background: rgb(18, 33, 196); border-radius: 10px; padding: 6px; color: rgb(254, 254, 254);">
                                         <p>
                                             <i class="fa-solid fa-rotate"></i>
-                                            <span>Liberar Para Cambiar Areaa</span>
+                                            <span>Liberar Para Cambiar Area</span>
                                         </p>
                                     </x-button>
                                 </td>
@@ -207,7 +207,7 @@
                                         style="background: rgb(241, 225, 119); border-radius: 10px; padding: 6px; color: rgb(0, 0, 0);">
                                         <p>
                                             <i class="fa-solid fa-rotate"></i>
-                                            <span>Liberarse Para Cambiar Areaa</span>
+                                            <span>Liberarse Para Cambiar Area</span>
                                         </p>
                                     </x-button>
                                 </td>
@@ -259,9 +259,30 @@
                         @else
                             @if ($TicketsAdminDesarrollo->user->id === $MyId)
                                 {{-- si el ticket esta en mi gestio y esta autrizado --}}
+                                {{-- 
+                                @if ($TicketsAdminDesarrollo->estado === 1)
+                                    <td class="px-6 py-4 ">
+                                        <a href="{{ route('ActivoDesarrollo.edit', $TicketsAdminDesarrollo->id) }}">
+                                            <p
+                                                style="background: rgb(2, 147, 55); border-radius: 10px; padding: 6px; color: white;">
+                                                <i class="fa-solid fa-clock-rotate-left"></i>
+                                                <span>Seguir en gestion</span>
+                                            </p>
+                                        </a>
+                                    </td>
+                                @endif --}}
 
                                 @switch($TicketsAdminDesarrollo->autorizacion)
                                     @case(0)
+                                        <td class="px-6 py-4 ">
+                                            <a href="{{ route('ActivoDesarrollo.edit', $TicketsAdminDesarrollo->id) }}">
+                                                <p
+                                                    style="background: rgb(2, 147, 55); border-radius: 10px; padding: 6px; color: white;">
+                                                    <i class="fa-solid fa-clock-rotate-left"></i>
+                                                    <span>Seguir en gestion</span>
+                                                </p>
+                                            </a>
+                                        </td>
                                     @break
 
                                     @case(1)

@@ -383,36 +383,6 @@
         ],
     ];
 
-    $buttonAuditoria = [
-        'can' => 'ModuloAuditoria',
-    ];
-
-    $auditorias = [
-        /* nuevos usuarios*/
-        [
-            'name' => 'Cohortes',
-            'url' => route('auditoria.index'),
-            'active' => request()->routeIs('homeGestion.*'),
-            'icon' => 'fa-solid fa-users',
-            'can' => 'auditoria',
-        ],
-        /* nuevas bodegas*/
-        [
-            'name' => 'Consulta Cohortes',
-            'url' => route('bodegas.index'),
-            'active' => request()->routeIs('bodegas.*'),
-            'icon' => 'fa-solid fa-truck-ramp-box',
-            'can' => 'auditoria',
-        ],
-        [
-            'name' => 'Administrar',
-            'url' => route('bodegas.index'),
-            'active' => request()->routeIs('bodegas.*'),
-            'icon' => 'fa-solid fa-truck-ramp-box',
-            'can' => 'auditoria',
-        ],
-    ];
-
     $buttonReportes = [
         'can' => 'ModuloReporte',
     ];
@@ -779,38 +749,6 @@
                 </li>
             @endcanany
 
-            {{-- auditoria --}}
-            @canany($buttonAuditoria['can'])
-                <li>
-                    <button type="button"
-                        class="flex items-center w-full p-2 text-base  transition duration-75 rounded-lg group hover:bg-gray-100 hover:text-gray-900 text-white "
-                        aria-controls="dropdown-auditoria" data-collapse-toggle="dropdown-auditoria">
-                        <i class="fa-solid fa-seedling">
-                            <path
-                                d="M15 12a1 1 0 0 0 .962-.726l2-7A1 1 0 0 0 17 3H3.77L3.175.745A1 1 0 0 0 2.208 0H1a1 1 0 0 0 0 2h.438l.6 2.255v.019l2 7 .746 2.986A3 3 0 1 0 9 17a2.966 2.966 0 0 0-.184-1h2.368c-.118.32-.18.659-.184 1a3 3 0 1 0 3-3H6.78l-.5-2H15Z" />
-                        </i>
-                        <span class="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">Gestion Auditoria</span>
-                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 10 6">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m1 1 4 4 4-4" />
-                        </svg>
-                    </button>
-                    <ul id="dropdown-auditoria" class="hidden py-2 space-y-2">
-                        @foreach ($auditorias as $auditoria)
-                            <li>
-                                <a href="{{ $auditoria['url'] }}"
-                                    style="display: flex; align-items: center; padding: 8px; border-radius: 8px; text-decoration: none; color: {{ $auditoria['active'] ? 'white' : 'black' }}; background-color: {{ $auditoria['active'] ? 'black' : '' }};"
-                                    onmouseover="this.style.backgroundColor='black'; this.style.color='white';"
-                                    onmouseout="this.style.backgroundColor='{{ $auditoria['active'] ? 'black' : '' }}'; this.style.color='{{ $auditoria['active'] ? 'white' : 'black' }}';">
-                                    <span style="margin-left: 12px;"><b>{{ $auditoria['name'] }}</b></span>
-                                    <!-- Línea horizontal -->
-                                </a>
-                            </li>
-                        @endforeach
-                    </ul>
-                </li>
-            @endcanany
 
             {{-- reportes gereles --}}
             @canany($buttonReportes['can'])

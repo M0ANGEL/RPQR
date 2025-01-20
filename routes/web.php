@@ -175,13 +175,6 @@ Route::resource('/PendienteMes', PendienteGraficaMesController::class)->middlewa
 Route::resource('/PendientesBodegasM', PendientesBMController::class)->middleware(['can:PendientesBodegasM']);
 
 
-/* AUDITORIA  VENTA*/
-
-/* gestion de subida de archivos */
-Route::get('/auditoria', [ArchivosController::class, 'index'])->name('auditoria.index');
-Route::post('/auditoria/subir-reportes', [ArchivosController::class, 'subirReportes'])->name('reportes.subir');
-Route::post('/auditoria/borrar-datos', [ArchivosController::class, 'borrarDatos'])->name('borrar.datos');
-
 
 /* IMPRESORA REPORTES */
 Route::resource('/ReporteImpresora', ImpresoraController::class)->middleware(['can:reportar']); /* esta ruta maneja las solicitudes de creacion de reporte redvital */
@@ -215,19 +208,10 @@ Route::post('/registro-personal', [AsistenciaController::class, 'RegistroStore']
 /* reportes */
 Route::get('download-report', [AsistenciaController::class, 'descarga'])->name('descarga.asistencias')->middleware(['can:reporte_asistenacias_induciones']);
 
-/* asistencias th */
-Route::resource('/RegistroAsistencias', AsistenciasController::class);
-
-
-/* pedido medicamentos por rotacion */
-
-Route::resource('/Rotacion-Inventario', PedivoInventarioController::class);
-
 /* Novedadaes */
 Route::get('/novedades/administrador', [NovedadController::class, 'supervisor'])->name('novedades.administrador')->middleware(['can:ModuloNovedades']);
 Route::resource('/novedades', NovedadController::class)->middleware(['can:ModuloNovedades']);
 Route::get('archivos/{id}/descargar', [NovedadController::class, 'descargar'])->name('archivos.descargar');
-
 
 /* Tikes */
 Route::resource('/Tikes', TikeController::class);
@@ -272,10 +256,6 @@ Route::get('TikectPendientesCalificadosDesarrollo', [DesAdminController::class, 
 Route::get('TikectCalificadosDesarrollo', [DesAdminController::class, 'tikesCalificados'])->name('TikectCalificadosDesarrollo.index');
 Route::get('VistaTikectSinCalificadosDesarrollo/{tickesPendiente}', [DesAdminController::class, 'VistaTikectSinCalificados'])->name('VistatikeSinCalificadosDesarrollo.show');
 Route::get('VistaTikectCerradosDesarrollo/{tickesCerrados}', [DesAdminController::class, 'VistaTikectCerrados'])->name('VistaTikectCerradosDesarrollo.show');
-
-
-
-
 
 
 
